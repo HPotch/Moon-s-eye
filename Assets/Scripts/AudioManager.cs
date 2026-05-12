@@ -20,7 +20,7 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);
     }
     
-    public void StartSound(AudioClip clip, float volume = 1f, float pitch = 1f)
+    public void StartClip(AudioClip clip, float volume = 1f, float pitch = 1f)
     {
         GameObject sound = Instantiate(audioObject, audioParent.transform);
         
@@ -39,12 +39,12 @@ public class AudioManager : MonoBehaviour
         source.Play();
     }
 
-    public void StartRandomSound(AudioClip[] clips, float volume = 1f, float pitch = 1f)
+    public void StartRandomClip(AudioClip[] clips, float volume = 1f, float pitch = 1f)
     {
-        StartSound(clips[Random.Range(0, clips.Length - 1)], volume, pitch);
+        StartClip(clips[Random.Range(0, clips.Length - 1)], volume, pitch);
     }
 
-    public void StopSound(AudioClip clip)
+    public void StopClip(AudioClip clip)
     {
         foreach (Transform child in transform)
         {
