@@ -4,7 +4,6 @@ using UnityEngine;
 public class NewMonoBehaviourScript : MonoBehaviour
 {
     [SerializeField] private List<int> sequence = new List<int>();
-    
     private Piano _piano;
 
     private void Start()

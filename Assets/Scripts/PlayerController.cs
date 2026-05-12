@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private KeyCode[] runKeys = {KeyCode.LeftShift, KeyCode.RightShift};
 
     // References
+    [SerializeField] private Transform NPCs;
     private Rigidbody2D _rb;
     private float _startTimer;
     private float _endTimer;
@@ -68,6 +69,33 @@ public class PlayerController : MonoBehaviour
             
             _rb.linearVelocity = moveVelocity * (moveSpeed * Time.fixedDeltaTime * moveMultplier);
             _lastMove = moveVelocity;
+        }
+
+        HandleInteraction();
+    }
+
+    private void HandleInteraction()
+    {
+        GameObject closestNPC = null;
+        var closestDistance = float.PositiveInfinity;
+        for (var i = 0; i < NPCs.childCount; i++)
+        {
+            var child = NPCs.GetChild(i);
+            var distance = (transform.position - child.position).magnitude;
+            if (!(distance < closestDistance)) continue;
+            closestNPC = child.gameObject;
+            closestDistance = distance;
+
+        }
+
+        if (!(closestDistance < interactionDistance) || closestNPC is null || closestNPC == GameManager.Instance.talkingWith) return;
+        foreach (var key in interactionKeys)
+        {
+            if (Input.GetKeyDown(key))
+            {
+                closestNPC.GetComponent<NPCManager>().Talk();
+                GameManager.Instance.talkingWith = closestNPC;
+            }
         }
     }
 

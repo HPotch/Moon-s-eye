@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Minis;
@@ -15,6 +16,8 @@ public class Piano : MonoBehaviour
     [SerializeField] private AudioClip pianoSound;
     [SerializeField] private float volume = 5f;
     [SerializeField] private float sequenceTime = 1f;
+    [SerializeField] private float playSequenceTime = 0.2f;
+    public readonly float PlaySequenceStartTime = 1f;
     
     // References
     private Image _image;
@@ -28,6 +31,7 @@ public class Piano : MonoBehaviour
     private List<int> _sequence = new List<int>(); // Sequence recording
     private bool _on = false;
     private MidiDevice _currentDevice;
+    private bool _playingSequence = false;
 
     private void Awake()
     {
@@ -38,17 +42,15 @@ public class Piano : MonoBehaviour
 
     private void Start()
     {
-        if (GameManager.Instance.piano is null) GameManager.Instance.piano = this;
+        GameManager.Instance.piano ??= this;
     }
 
     private void Update()
     {
         UpdateCurrentDevice();
-        
         if (Input.GetKeyDown(onOffKey)) _on = !_on;
-        if (!_on) return;
-        
-        SetSprite();
+        if (_currentDevice is not null) _on = false; // Skip keyboard input if midi device is attached
+        if (_on) SetSprite();
         
         _sequenceTimer -= Time.deltaTime;
         if (_sequenceTimer <= 0f) _sequence.Clear();
@@ -88,21 +90,25 @@ public class Piano : MonoBehaviour
             }
         }
 
-        _image.sprite = sprites[0]; // Reset to default if no keys are pressed
+        if (!_playingSequence) _image.sprite = sprites[0]; // Reset to default if no keys are pressed
     }
 
     private void OnNoteOn(MidiNoteControl note, float velocity)
     {
-        if (!midiNumbers.Contains(note.noteNumber)) return;
-        foreach (var t in midiNumbers)
+        // Handle midi input
+        if (!midiNumbers.Contains(note.noteNumber)) return; // Skip if the note is not registered
+        for (var i = 0; i < midiNumbers.Length; i++)
         {
-            if (note.noteNumber == t)
-            {
-                
-            }
+            if (note.noteNumber != midiNumbers[i]) continue;
+            
+            // i = now the number of the pressed key in the lists
+            _image.sprite = sprites[i + 1];
+            PlayClip(i);
+            _sequence.Add(i);
+            _sequenceTimer = sequenceTime;
+            return; // Ensure no unnecessary checks are done
         }
     }
-
     
     private void PlayClip(int pressedKey)
     {
@@ -121,6 +127,45 @@ public class Piano : MonoBehaviour
 
     public bool CheckSequence(List<int> referenceSequence)
     {
-         return referenceSequence.SequenceEqual(_sequence);
+        if (_sequence.Count < referenceSequence.Count) return false; // If the sequence is shorter than the reference, it is definitely wrong, so we can skip the check
+        
+        // Put the last [reference length] numbers of the sequence in a list, only the last part is checked
+        var lastSequence = new List<int>();
+        for (var i = referenceSequence.Count; i > 0; i--)
+        {
+            lastSequence.Add(_sequence[^i]);
+        }
+        print(lastSequence);
+        return referenceSequence.SequenceEqual(lastSequence);
+    }
+
+    public void PlaySequence(List<int> sequence)
+    {
+        print("ok");
+        StartCoroutine(PlaySequenceRoutine(sequence));
+    }
+
+    private IEnumerator PlaySequenceRoutine(List<int> sequence)
+    {
+        print("okok");
+        _playingSequence = true;
+        foreach (var t in sequence)
+        {
+            PlayNote(t);
+            yield return new WaitForSeconds(playSequenceTime);
+        }
+        _playingSequence = false;
+    }
+
+    private void PlayNote(int num) // num = the number in the arrays
+    {
+        print("okokok");
+        _image.sprite = sprites[num + 1];
+        PlayClip(num);
+    }
+
+    public bool IsPlayingSequence()
+    {
+        return _playingSequence;
     }
 }
