@@ -1,5 +1,7 @@
-This is my project for The Outer Wilds assignment at HKU Games year 1.
+# Moon's Eye
+## This is my project for The Outer Wilds assignment at HKU Games year 1.
 
+## Explanation Dialogue System
 The game features dialogue, which is automatically decoded in-game for easy editing. In Unity, you can assign any text file to an NPC to make it talk. These are the features of the dialogue:
 1) Talks - these are texts that the NPC says
 2) Questions - these are answers that the player can choose
