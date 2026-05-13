@@ -8,17 +8,22 @@ public class Dialogue : MonoBehaviour
     
     // References
     private TextMeshPro _tmp;
+    private TextMeshProUGUI _tmpUI;
     
     // Private variables
     private string _targetText = "";
     private string _currentText = "";
     private int _currentCharacter = 0;
     private float _scrollTime = 0f;
+    private bool _ui = false;
 
     private void Awake()
     {
         _tmp = GetComponentInChildren<TextMeshPro>();
-        if (_tmp == null) Debug.LogError("Dialogue component has no TextMeshPro component in any children!");
+        if (_tmp is not null) return;
+        _ui = true;
+        _tmpUI = GetComponentInChildren<TextMeshProUGUI>();
+        if (_tmpUI == null) Debug.LogError("Dialogue component has no TextMeshPro(UGUI) component in any children!");
     }
 
     private void Update()
@@ -28,7 +33,8 @@ public class Dialogue : MonoBehaviour
         if (!(_scrollTime > scrollSpeed) || _currentCharacter >= _targetText.Length) return;
         _currentCharacter++;
         _currentText = _targetText[.._currentCharacter];
-        _tmp.text = _currentText;
+        if (_ui) _tmpUI.text = _currentText;
+        else _tmp.text = _currentText;
         scrollSpeed = 0f;
     }
 

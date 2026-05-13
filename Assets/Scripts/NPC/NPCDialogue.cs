@@ -68,8 +68,7 @@ public class NPCDialogue : MonoBehaviour
 
     public void StartDialogue()
     {
-        //_currentDialogue = 0;
-        //_dialogueScript.SetText(dialogueText[_currentDialogue]);
+        SetTalk(_startTalk);
         _dialogueStarted = true;
     }
 
@@ -102,10 +101,10 @@ public class NPCDialogue : MonoBehaviour
             if (!Input.GetKeyDown(key)) continue;
             if (_dialogueScript.IsDone())
             {
-                _currentDialogue += 1;
-                // if (_currentDialogue >= dialogueText.Count) Exit();
-                //         
-                // _dialogueScript.SetText(dialogueText[_currentDialogue]);
+                Classes.Talk cd = _talks[_currentDialogue];
+                if (cd.End) { Exit(); return; }
+                if (cd.TalkNext) { SetTalk(cd.NextTalk); return; }
+                SpawnQuestions(cd);
             }
             else
             {
@@ -113,8 +112,26 @@ public class NPCDialogue : MonoBehaviour
             }
         }
     }
+
+    private void SpawnQuestions(Classes.Talk cd)
+    {
+        List<Classes.Question> nextQuestions;
+        foreach (string key in cd.NextQuestions)
+        {
+            GameManager.Instance.dqc.SpawnDialogueQuestion(_questions[key], this);
+        }
+
+        _talking = false;
+    }
     
-    private void Exit()
+    public void SetTalk(string key)
+    {
+        _currentDialogue = key;
+        _dialogueScript.SetText(_talks[_currentDialogue].Text);
+        _talking = true;
+    }
+    
+    public void Exit()
     {
         _talking = false;
         GameManager.Instance.talkingWith = null;

@@ -1,4 +1,4 @@
-/>A:Hi, I'm max!;?1;2;3;
+/>A:Hi, I'm max!;?1;2;3
 /B:I'm one of the moonfolk;?4;5;6;7
 /C:That's not very nice;/D
 /D:I don't want to talk to you anymore;<
@@ -9,7 +9,6 @@
 /I:It wasn't a question...;<
 /J:Ermm.. My parents named me that way... What's your name?;?10;11
 /K:That's too bad;<
-
 ?1:Hi Max!;B
 ?2:What a weird name;C
 ?3:Could you repeat that;A

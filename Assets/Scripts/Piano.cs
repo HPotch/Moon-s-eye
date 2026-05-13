@@ -141,13 +141,11 @@ public class Piano : MonoBehaviour
 
     public void PlaySequence(List<int> sequence)
     {
-        print("ok");
         StartCoroutine(PlaySequenceRoutine(sequence));
     }
 
     private IEnumerator PlaySequenceRoutine(List<int> sequence)
     {
-        print("okok");
         _playingSequence = true;
         foreach (var t in sequence)
         {
@@ -159,7 +157,6 @@ public class Piano : MonoBehaviour
 
     private void PlayNote(int num) // num = the number in the arrays
     {
-        print("okokok");
         _image.sprite = sprites[num + 1];
         PlayClip(num);
     }

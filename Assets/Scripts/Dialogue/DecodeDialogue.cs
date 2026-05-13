@@ -48,8 +48,6 @@ public static class DecodeDialogue
         questions = _questions;
         startTalk = _startTalk;
     }
-    
-    
 
     private static void DecodeLine(string line)
     {
