@@ -54,7 +54,7 @@ Commented version:
 />A:Hi, I'm max!;?1;2;3; <-- The ´>' marks the beginning of the conversation
 /B:I'm one of the moonfolk;?4;5;6;7 <-- '?4;5;6;7' tells the code to reference the Questions 4, 5, 6 and 7 as next options
 /C:That's not very nice;/D <-- '/D' tells the code to run the Talk with key 'D' next. Notice how this is only one Talk, multiple talks cannot be given.
-/D:I don't want to talk to you anymore;< <- '<' marks the end of the conversation
+/D:I don't want to talk to you anymore;< <-- '<' marks the end of the conversation
 /E:Thanks, that's nice! I gotta go though, see you later.;<
 /F:I try to be nice but with that attitude I don't like to see you anymore.;<
 /G:Well, were did invent boats to get here, so I guess we're better after all.;/H
@@ -63,8 +63,8 @@ Commented version:
 /J:Ermm.. My parents named me that way... What's your name?;?10;11
 /K:That's too bad;<
 
-?1:Hi Max!;B <- This is a Question - it starts with a '?'
-?2:What a weird name;C <- Notice how these Questions do not mark a Question or Talks as a next step - it is always one Talk.
+?1:Hi Max!;B <-- This is a Question - it starts with a '?'
+?2:What a weird name;C <-- Notice how these Questions do not mark a Question or Talks as a next step - it is always one Talk.
 ?3:Could you repeat that;A
 ?4:I've heard moonfolk are pretty cool;E
 ?5:Moonfolk scare me;F
