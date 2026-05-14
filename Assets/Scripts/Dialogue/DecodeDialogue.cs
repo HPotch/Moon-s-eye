@@ -30,6 +30,7 @@ public static class DecodeDialogue
     
     public static void DecodeTextFile(string path, out Dictionary<string, Classes.Talk> talks, out Dictionary<string, Classes.Question> questions, out string startTalk)
     {
+        Clear();
         // Set script-wide variables
         _filePath = path;
         _lineNum = 0;
@@ -47,6 +48,13 @@ public static class DecodeDialogue
         talks = _talks; 
         questions = _questions;
         startTalk = _startTalk;
+    }
+
+    private static void Clear()
+    {
+        _startTalk = "";
+        _talks.Clear();
+        _questions.Clear();
     }
 
     private static void DecodeLine(string line)

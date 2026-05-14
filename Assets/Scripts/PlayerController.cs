@@ -85,17 +85,18 @@ public class PlayerController : MonoBehaviour
             if (!(distance < closestDistance)) continue;
             closestNPC = child.gameObject;
             closestDistance = distance;
-
         }
 
+        GameManager.Instance.closestNPC = null;
         if (!(closestDistance < interactionDistance) || closestNPC is null || closestNPC == GameManager.Instance.talkingWith) return;
+        GameManager.Instance.closestNPC = closestNPC;
+        
+        NPCManager manager = closestNPC.GetComponent<NPCManager>();
         foreach (var key in interactionKeys)
         {
-            if (Input.GetKeyDown(key))
-            {
-                closestNPC.GetComponent<NPCManager>().Talk();
-                GameManager.Instance.talkingWith = closestNPC;
-            }
+            if (!Input.GetKeyDown(key)) continue;
+            manager.Talk();
+            GameManager.Instance.talkingWith = closestNPC;
         }
     }
 

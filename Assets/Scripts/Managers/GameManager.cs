@@ -1,10 +1,12 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    public GameObject closestNPC = null;
     public GameObject talkingWith = null;
     public DialogueQuestionContainer dqc = null;
     
@@ -27,6 +29,11 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         currentInputMode = GetInputMode();
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 
     private static InputMode GetInputMode()

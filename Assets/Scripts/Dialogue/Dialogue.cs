@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -5,6 +6,7 @@ public class Dialogue : MonoBehaviour
 {
     // Settings
     [SerializeField] private float scrollSpeed = 0.02f;
+    [NonSerialized] public bool type = true;
     
     // References
     private TextMeshPro _tmp;
@@ -28,21 +30,22 @@ public class Dialogue : MonoBehaviour
 
     private void Update()
     {
+        if (!type) return;
         _scrollTime += Time.deltaTime;
         
-        if (!(_scrollTime > scrollSpeed) || _currentCharacter >= _targetText.Length) return;
+        if (!(_scrollTime >= scrollSpeed) || _currentCharacter >= _targetText.Length) return;
         _currentCharacter++;
         _currentText = _targetText[.._currentCharacter];
-        if (_ui) _tmpUI.text = _currentText;
-        else _tmp.text = _currentText;
-        scrollSpeed = 0f;
+        ApplyText();
+        _scrollTime = 0f;
     }
 
     public void SetText(string text)
     {
         _targetText = text;
-        _currentText = "";
+        _currentText = type ? "" : _targetText;
         _currentCharacter = 0;
+        ApplyText();
     }
 
     public bool IsDone()
@@ -54,5 +57,12 @@ public class Dialogue : MonoBehaviour
     {
         _currentText = _targetText;
         _currentCharacter = _targetText.Length;
+        ApplyText();
+    }
+
+    private void ApplyText()
+    {
+        if (_ui) _tmpUI.text = _currentText;
+        else _tmp.text = _currentText;
     }
 }

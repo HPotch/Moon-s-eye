@@ -139,6 +139,11 @@ public class Piano : MonoBehaviour
         return referenceSequence.SequenceEqual(lastSequence);
     }
 
+    public bool CheckSequenceLength(List<int> referenceSequence)
+    {
+        return _sequence.Count >= referenceSequence.Count;
+    }
+
     public void PlaySequence(List<int> sequence)
     {
         StartCoroutine(PlaySequenceRoutine(sequence));

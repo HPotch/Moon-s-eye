@@ -13,7 +13,17 @@ public class NPCManager : MonoBehaviour
     // References
     private Piano _piano;
     private NPCDialogue _dialogue;
+    private Tooltip _tooltip;
 
+    // Private variables
+    private int _good = -1;
+    
+    private void Awake()
+    {
+        gameObject.layer = LayerMask.NameToLayer("NPC");
+        _tooltip = GetComponentInChildren<Tooltip>();
+    }
+    
     private void Start()
     {
         _piano = GameManager.Instance.piano;
@@ -23,11 +33,7 @@ public class NPCManager : MonoBehaviour
     private void Update()
     {
         _piano ??= GameManager.Instance.piano;
-    }
-    
-    void Awake()
-    {
-        gameObject.layer = LayerMask.NameToLayer("NPC");
+        _tooltip.OnOff(GameManager.Instance.closestNPC == gameObject);
     }
 
     public void Talk()
@@ -37,11 +43,15 @@ public class NPCManager : MonoBehaviour
 
     private IEnumerator TalkRoutine()
     {
-        _dialogue.MatchVibe();
-        yield return new WaitForSeconds(_piano.PlaySequenceStartTime);
-        _piano.PlaySequence(sequence);
-        yield return new WaitUntil(() => _piano.IsPlayingSequence());
-        yield return new WaitUntil(() => _piano.CheckSequence(sequence));
-        _dialogue.StartDialogue();
+        if (_good == -1)
+        {
+            _dialogue.MatchVibe();
+            yield return new WaitForSeconds(_piano.PlaySequenceStartTime);
+            _piano.PlaySequence(sequence);
+            yield return new WaitUntil(() => _piano.IsPlayingSequence());
+            yield return new WaitUntil(() => _piano.CheckSequenceLength(sequence));
+            _good = _piano.CheckSequence(sequence) ? 1 : 0;
+        }
+        _dialogue.StartDialogue(_good == 1);
     }
 }
