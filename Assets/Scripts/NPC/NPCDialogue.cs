@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class NPCDialogue : MonoBehaviour
 {
@@ -10,7 +11,9 @@ public class NPCDialogue : MonoBehaviour
     [SerializeField] private string badFile = ""; // The bad file that is decoded to dialogue
     [SerializeField] private float questionWaitTime = 0.3f;
     [SerializeField] private Vector2 dialogueOffset = new Vector2(0f, 1f);
-    [Header("Keys")]
+    
+    // Events
+    [Header("Events")] [SerializeField] private UnityEvent onDialogueFinished;
 
     // References
     [Header("References")]
@@ -58,9 +61,9 @@ public class NPCDialogue : MonoBehaviour
     {
         if (_talking)
         {
-            HandleExit();
             HandleNext();
         }
+        HandleExit();
         
         _dialogue.gameObject.SetActive(_talking);
         _justStarted = false;
@@ -85,7 +88,12 @@ public class NPCDialogue : MonoBehaviour
             if (_dialogueScript.IsDone())
             {
                 Classes.Talk cd = _talks[_currentDialogue];
-                if (cd.End) { Exit(); return; }
+                if (cd.End)
+                {
+                    Exit();
+                    onDialogueFinished.Invoke();
+                    return;
+                }
                 if (cd.TalkNext) { SetTalk(cd.NextTalk); return; }
                 SpawnQuestions(cd);
             }
@@ -119,6 +127,8 @@ public class NPCDialogue : MonoBehaviour
         _talking = false;
         _dialogueStarted = false;
         GameManager.Instance.talkingWith = null;
+        GameManager.Instance.dqc.Empty();
+        GameManager.Instance.pianoEnabled = false;
     }
 
     private void SpawnDialogue()

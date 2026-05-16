@@ -19,7 +19,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private KeyCode[] moveDownKeys = {KeyCode.S, KeyCode.DownArrow, KeyCode.K};
     [SerializeField] private KeyCode[] moveLeftKeys = {KeyCode.A, KeyCode.LeftArrow, KeyCode.J};
     [SerializeField] private KeyCode[] moveRightKeys = {KeyCode.D, KeyCode.RightArrow, KeyCode.L};
-    [SerializeField] private KeyCode[] interactionKeys = {KeyCode.E, KeyCode.U};
     [SerializeField] private KeyCode[] openPianoKeys = {KeyCode.Space, KeyCode.Q, KeyCode.O, KeyCode.Tab};
     [SerializeField] private KeyCode[] runKeys = {KeyCode.LeftShift, KeyCode.RightShift};
 
@@ -50,7 +49,8 @@ public class PlayerController : MonoBehaviour
                 break;
         }
         
-        if (GameManager.Instance.pianoEnabled) moveVelocity = Vector2.zero;
+        print(GameManager.Instance.talkingWith);
+        if (GameManager.Instance.pianoEnabled || GameManager.Instance.talkingWith != null) moveVelocity = Vector2.zero;
 
         float moveMultplier = 0f;
         if (moveVelocity == Vector2.zero)
@@ -94,11 +94,14 @@ public class PlayerController : MonoBehaviour
         GameManager.Instance.closestNPC = closestNPC;
         
         NPCManager manager = closestNPC.GetComponent<NPCManager>();
-        foreach (var key in interactionKeys)
+        foreach (var key in GameManager.Instance.confirmKeys)
         {
-            if (!Input.GetKeyDown(key)) continue;
-            manager.Talk();
-            GameManager.Instance.talkingWith = closestNPC;
+            if (Input.GetKeyDown(key))
+            {
+                manager.Talk();
+                GameManager.Instance.talkingWith = closestNPC;
+            }
+
         }
     }
 

@@ -25,6 +25,10 @@ public class GameManager : MonoBehaviour
     public GameObject mouseOver = null;
     public List<KeyCode> confirmKeys = new List<KeyCode>();
     public List<KeyCode> exitKeys = new List<KeyCode>();
+    public List<KeyCode> inventoryKeys = new List<KeyCode>();
+    public List<KeyCode> scrollUpKeys = new List<KeyCode>();
+    public List<KeyCode> scrollDownKeys = new List<KeyCode>();
+
     
     public Piano piano;
     public enum InputMode {Controller, Keyboard};

@@ -1,0 +1,10 @@
+/>A:I have never seen you before.;/B
+/B:That makes me uncomfortable.;/C
+/C:...;?1;2
+/D:Oh really? Another one of those? Everyone says that nowadays;/4
+/E:I don't like the way you're talking to me;
+
+?1:Eye's leaders sent me;
+?2:
+?3:
+?4:I've heard you know everyone, don't play games on me;E

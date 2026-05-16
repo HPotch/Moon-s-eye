@@ -7,7 +7,8 @@ public class Tooltip : MonoBehaviour
     // Settings
     [SerializeField] private Char openingBracket = '[';
     [SerializeField] private Char closingBracket = ']';
-    [SerializeField] private string text = "E to talk";
+    [SerializeField] private string keyboardText = "'E' - talk";
+    [SerializeField] private string gamePadText = "'X' - talk";
 
     [SerializeField] private AnimationCurve sizeCurve;
     [SerializeField] private AnimationCurve typeCurve;
@@ -72,6 +73,7 @@ public class Tooltip : MonoBehaviour
         _sizeTimer = Mathf.Clamp01(_sizeTimer);
         
         // Text
+        var text = GameManager.Instance.currentInputMode == GameManager.InputMode.Keyboard ? keyboardText : gamePadText;
         float t = typeCurve.Evaluate(Mathf.Clamp01(_typeTimer));
         int characterAmount = (int)(text.Length * t);
         _currentText = text.Substring(0, characterAmount);

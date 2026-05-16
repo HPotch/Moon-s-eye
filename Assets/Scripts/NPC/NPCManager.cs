@@ -9,6 +9,7 @@ public class NPCManager : MonoBehaviour
 {
     // Settings
     [SerializeField] private List<int> sequence = new List<int>();
+    [SerializeField] private bool skipVibing = false;
     
     // References
     private Piano _piano;
@@ -43,6 +44,7 @@ public class NPCManager : MonoBehaviour
 
     private IEnumerator TalkRoutine()
     {
+        if (skipVibing) _good = 1;
         if (_good == -1)
         {
             _dialogue.MatchVibe();
