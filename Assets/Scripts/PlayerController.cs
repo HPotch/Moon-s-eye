@@ -49,6 +49,8 @@ public class PlayerController : MonoBehaviour
                 moveVelocity = Gamepad.current.leftStick.value;
                 break;
         }
+        
+        if (GameManager.Instance.pianoEnabled) moveVelocity = Vector2.zero;
 
         float moveMultplier = 0f;
         if (moveVelocity == Vector2.zero)

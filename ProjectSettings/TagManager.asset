@@ -8,10 +8,11 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
   - NPC
+  - Mouse
   - 
   - 
   - 
@@ -35,8 +36,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - CRTScreen
   m_SortingLayers:
   - name: Default
     uniqueID: 0

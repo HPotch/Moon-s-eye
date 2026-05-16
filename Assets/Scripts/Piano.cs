@@ -29,7 +29,6 @@ public class Piano : MonoBehaviour
     private float _baseFrequency = 0f; // The frequency of the pianoSound, depends on _audioMidiNumber
     private float _sequenceTimer = 0f;
     private List<int> _sequence = new List<int>(); // Sequence recording
-    private bool _on = false;
     private MidiDevice _currentDevice;
     private bool _playingSequence = false;
 
@@ -48,9 +47,9 @@ public class Piano : MonoBehaviour
     private void Update()
     {
         UpdateCurrentDevice();
-        if (Input.GetKeyDown(onOffKey)) _on = !_on;
-        if (_currentDevice is not null) _on = false; // Skip keyboard input if midi device is attached
-        if (_on) SetSprite();
+        if (Input.GetKeyDown(onOffKey)) GameManager.Instance.pianoEnabled = !GameManager.Instance.pianoEnabled;
+        if (_currentDevice is not null) GameManager.Instance.pianoEnabled = false; // Skip keyboard input if midi device is attached
+        if (GameManager.Instance.pianoEnabled) SetSprite();
         
         _sequenceTimer -= Time.deltaTime;
         if (_sequenceTimer <= 0f) _sequence.Clear();
@@ -135,7 +134,6 @@ public class Piano : MonoBehaviour
         {
             lastSequence.Add(_sequence[^i]);
         }
-        print(lastSequence);
         return referenceSequence.SequenceEqual(lastSequence);
     }
 

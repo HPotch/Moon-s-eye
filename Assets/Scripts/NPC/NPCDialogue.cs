@@ -11,8 +11,6 @@ public class NPCDialogue : MonoBehaviour
     [SerializeField] private float questionWaitTime = 0.3f;
     [SerializeField] private Vector2 dialogueOffset = new Vector2(0f, 1f);
     [Header("Keys")]
-    [SerializeField] private List<KeyCode> nextKeys = new List<KeyCode>();
-    [SerializeField] private List<KeyCode> exitKeys = new List<KeyCode>();
 
     // References
     [Header("References")]
@@ -39,7 +37,7 @@ public class NPCDialogue : MonoBehaviour
     
     public void MatchVibe()
     {
-        _dialogueScript.SetText("Come and match my vibe man!");
+        _dialogueScript.SetText("Bond with me, press p to play piano and match my vibe!");
         _talking = true;
         _dialogueStarted = false;
     }
@@ -70,7 +68,7 @@ public class NPCDialogue : MonoBehaviour
 
     private void HandleExit()
     {
-        foreach (var key in exitKeys)
+        foreach (var key in GameManager.Instance.exitKeys)
         {
             if (!Input.GetKeyDown(key)) continue;
             Exit();
@@ -81,7 +79,7 @@ public class NPCDialogue : MonoBehaviour
     private void HandleNext()
     {
         if (!(_dialogueStarted) || _justStarted) return;
-        foreach (var key in nextKeys)
+        foreach (var key in GameManager.Instance.confirmKeys)
         {
             if (!Input.GetKeyDown(key)) continue;
             if (_dialogueScript.IsDone())

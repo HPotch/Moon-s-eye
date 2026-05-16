@@ -1,13 +1,19 @@
 using System;
-using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Dialogue))]
+[RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(RectTransform))]
+[RequireComponent(typeof(Image))]
 public class DialogueQuestion : MonoBehaviour
 {
     // Settings
     [SerializeField] private AnimationCurve sizeCurve;
     [SerializeField] private float sizeTime = 0.3f;
+    [SerializeField] private Vector3 animationAxis = Vector3.up;
+    [SerializeField] private Sprite selectSprite;
+    [SerializeField] private Sprite noSelectSprite;
     [NonSerialized] public float waitTime = 0f;
     
     // References
@@ -15,16 +21,26 @@ public class DialogueQuestion : MonoBehaviour
     [NonSerialized] public Classes.Question Question;
     [NonSerialized] public NPCDialogue NPCDialogue;
     private Dialogue _dialogue;
+    private BoxCollider2D _collider;
+    private RectTransform _rectTransform;
+    private Image _image;
     
     // Private variables
     private float _sizeTimer = 0f;
     private Vector3 _startSize;
     private bool _show = true;
+    [NonSerialized] public bool Selected = false;
 
     private void Awake()
     {
+        _collider = GetComponent<BoxCollider2D>();
+        _rectTransform = GetComponent<RectTransform>();
+        _image = GetComponent<Image>();
+        
         _startSize = transform.localScale;
         transform.localScale = Vector3.zero;
+
+        noSelectSprite ??= _image.sprite;
     }
 
     private void Start()
@@ -38,10 +54,30 @@ public class DialogueQuestion : MonoBehaviour
 
     private void Update()
     {
+        _collider.size = new Vector2(_rectTransform.rect.width, _rectTransform.rect.height);
+
+        if (GameManager.Instance.mouseOver == gameObject || Selected)
+        {
+            _image.sprite = selectSprite;
+            if (Input.GetMouseButtonDown(0)) Select();
+            else
+            {
+                foreach (var key in GameManager.Instance.confirmKeys)
+                {
+                    if (Input.GetKeyDown(key)) Select();
+                }
+            }
+            
+        }
+        else _image.sprite = noSelectSprite;
+
+        
+        
         _sizeTimer += (Time.deltaTime / sizeTime) * (_show ? 1f : -1f);
         _sizeTimer = Mathf.Clamp(_sizeTimer, -waitTime, 1f);
-        
-        transform.localScale = Util.LerpWithoutClampV3(new Vector3(_startSize.x, 0f, _startSize.z), _startSize, sizeCurve.Evaluate(_sizeTimer));
+
+        Vector3 axis = new Vector3(_startSize.x * animationAxis.x, _startSize.y * animationAxis.y, _startSize.z * animationAxis.z);
+        transform.localScale = Util.LerpWithoutClampV3(axis, _startSize, sizeCurve.Evaluate(_sizeTimer));
         
         if (!_show && _sizeTimer <= 0f) Destroy(gameObject);
     }
@@ -57,4 +93,5 @@ public class DialogueQuestion : MonoBehaviour
     {
         _show = on;
     }
+
 }
