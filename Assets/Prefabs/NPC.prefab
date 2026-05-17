@@ -154,8 +154,9 @@ MonoBehaviour:
   badFile: Assets/Dialogue/MaxBad
   questionWaitTime: 0.2
   dialogueOffset: {x: 0, y: 1}
-  nextKeys: 65000000750000004c010000
-  exitKeys: 1b0000004a010000
+  onDialogueFinished:
+    m_PersistentCalls:
+      m_Calls: []
   dialoguePrefab: {fileID: 8831024957538938800, guid: 6cff8d2b4ecc4061f9433b44719f58ff, type: 3}
 --- !u!114 &2454574223633707034
 MonoBehaviour:
@@ -182,6 +183,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sequence: 00000000020000000400000006000000
+  skipVibing: 0
 --- !u!1 &6625254209769376399
 GameObject:
   m_ObjectHideFlags: 0
@@ -373,7 +375,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openingBracket: 91
   closingBracket: 93
-  text: E to talk
+  keyboardText: E - talk
+  gamePadText: X - talk
   sizeCurve:
     serializedVersion: 2
     m_Curve:

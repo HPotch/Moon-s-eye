@@ -1,14 +1,27 @@
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem.Android;
 
 public class CameraController : MonoBehaviour
 {
+    // Public variables
+    [NonSerialized] public float CamOffsetY = 0f;
+    
+    // Settings
+    [Header("Settings")]
     [SerializeField] private GameObject target;
     [SerializeField] private float smoothing = 20f;
     [SerializeField] private bool fixedUpdate = true;
     [SerializeField] private bool inverted = true;
+    [Header("PianoOffset")]
+    [SerializeField] private float pianoOffset = 2f;
+    [SerializeField] private float pianoOffsetTime = 1f;
+    [SerializeField] private AnimationCurve pianoOffsetCurve;
 
+    // Private variables
     private float _zPos = 0f;
     private Vector3 _smoothedV3 = Vector2.zero;
+    private float _timer = 0f;
 
     private void Awake()
     {
@@ -23,6 +36,7 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
+        HandlePianoOffset();
         if (!fixedUpdate) Move();
     }
 
@@ -41,6 +55,14 @@ public class CameraController : MonoBehaviour
             return;
         }
         
-        transform.position = _smoothedV3;
+        transform.position = _smoothedV3 - new Vector3(0f, CamOffsetY, 0f);
+    }
+
+    private void HandlePianoOffset()
+    {
+        if (!GameManager.Instance.camcontrol) GameManager.Instance.camcontrol = this;
+        _timer += Time.deltaTime * (GameManager.Instance.pianoEnabled ? 1f : -1f) / pianoOffsetTime;
+        _timer = Mathf.Clamp01(_timer);
+        CamOffsetY = pianoOffsetCurve.Evaluate(_timer) * pianoOffset;
     }
 }

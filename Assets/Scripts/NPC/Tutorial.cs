@@ -4,6 +4,7 @@ using UnityEngine;
 public class Tutorial : MonoBehaviour
 {
     [SerializeField] private GameObject messagePrefab;
+    [SerializeField] private GameObject scrollPrefab;
     [SerializeField] private Canvas canvas;
     [SerializeField] private string text1 = "Press '";
     [SerializeField] private string keyboardText = "tab";
@@ -12,6 +13,8 @@ public class Tutorial : MonoBehaviour
     
     public void SpawnMessage()
     {
+        Instantiate(scrollPrefab, GameManager.Instance.inventory.transform);
+        
         GameObject message = Instantiate(messagePrefab, canvas.transform);
         message.GetComponent<Message>().waitKeys = GameManager.Instance.inventoryKeys;
         string keyText = GameManager.Instance.currentInputMode == GameManager.InputMode.Keyboard ? keyboardText : controllerText;

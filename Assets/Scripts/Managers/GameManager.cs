@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -20,8 +22,10 @@ public class GameManager : MonoBehaviour
 
     public GameObject closestNPC = null;
     public GameObject talkingWith = null;
+    public Inventory inventory;
     public DialogueQuestionContainer dqc = null;
     public bool pianoEnabled = false;
+    public bool inventoryEnabled = false;
     public GameObject mouseOver = null;
     public List<KeyCode> confirmKeys = new List<KeyCode>();
     public List<KeyCode> exitKeys = new List<KeyCode>();
@@ -29,20 +33,37 @@ public class GameManager : MonoBehaviour
     public List<KeyCode> scrollUpKeys = new List<KeyCode>();
     public List<KeyCode> scrollDownKeys = new List<KeyCode>();
 
-    
     public Piano piano;
+    public CameraController camcontrol;
     public enum InputMode {Controller, Keyboard};
     public InputMode currentInputMode = InputMode.Keyboard;
 
+    private void Start()
+    {
+        currentInputMode = Input.GetJoystickNames().Length == 0 ? InputMode.Keyboard : InputMode.Controller;
+    }
+    
     private void Update()
     {
-        currentInputMode = GetInputMode();
-
+        GetInputMode();
+        
         if (Input.GetKeyDown(KeyCode.R)) SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        if (inventoryEnabled) pianoEnabled = false;
+
+        
+        foreach (var key in GameManager.Instance.inventoryKeys.Where(Input.GetKeyDown))
+        {
+            GameManager.Instance.inventoryEnabled = !GameManager.Instance.inventoryEnabled;
+        }
+        if (inventory) inventory.transform.parent.gameObject.SetActive(inventoryEnabled);
     }
 
-    private static InputMode GetInputMode()
+    private void GetInputMode()
     {
-        return Input.GetJoystickNames().Length == 0 ? InputMode.Keyboard : InputMode.Controller;
+        if (Input.GetJoystickNames().Length == 0) return;
+        bool keyboardUpdate = Keyboard.current.anyKey.wasPressedThisFrame;
+        bool mouseUpdate = Input.GetMouseButton(0) || Input.GetMouseButton(1) ||  Input.GetMouseButtonDown(2);
+        if (keyboardUpdate || mouseUpdate) currentInputMode = InputMode.Keyboard;
+        if (Gamepad.current.wasUpdatedThisFrame) currentInputMode = InputMode.Controller;
     }
 }

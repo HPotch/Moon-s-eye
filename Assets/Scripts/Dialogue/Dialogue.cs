@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Dialogue : MonoBehaviour
 {
@@ -18,9 +19,12 @@ public class Dialogue : MonoBehaviour
     private int _currentCharacter = 0;
     private float _scrollTime = 0f;
     private bool _ui = false;
+    private RectTransform _parentRect;
 
     private void Awake()
     {
+        _parentRect = transform.parent.GetComponent<RectTransform>();
+        
         _tmp = GetComponentInChildren<TextMeshPro>();
         if (_tmp is not null) return;
         _ui = true;
@@ -64,5 +68,7 @@ public class Dialogue : MonoBehaviour
     {
         if (_ui) _tmpUI.text = _currentText;
         else _tmp.text = _currentText;
+        
+        if (_parentRect) LayoutRebuilder.ForceRebuildLayoutImmediate(_parentRect);
     }
 }

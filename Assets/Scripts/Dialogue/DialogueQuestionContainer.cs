@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -6,14 +7,26 @@ public class DialogueQuestionContainer : MonoBehaviour
 {
     [SerializeField] private GameObject _dialogueQuestionPrefab;
     private int _selected = 0;
-    
+    private Vector3 _startLocalPos;
+
+    private void Awake()
+    {
+        _startLocalPos = transform.localPosition;
+    }
+
     private void Update()
     {
         GameManager.Instance.dqc ??= this;
-
         ControllerScroll();
     }
 
+    private void LateUpdate()
+    {
+        CameraController camControl = GameManager.Instance.camcontrol;
+        transform.localPosition = _startLocalPos;
+        if (camControl) transform.position += new Vector3(0f, camControl.CamOffsetY, 0f);
+    }
+    
     private void ControllerScroll()
     {
         GameManager gm = GameManager.Instance;

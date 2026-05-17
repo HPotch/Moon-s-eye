@@ -48,6 +48,7 @@ public class NPCManager : MonoBehaviour
         if (_good == -1)
         {
             _dialogue.MatchVibe();
+            yield return new WaitUntil(() => GameManager.Instance.pianoEnabled);
             yield return new WaitForSeconds(_piano.PlaySequenceStartTime);
             _piano.PlaySequence(sequence);
             yield return new WaitUntil(() => _piano.IsPlayingSequence());

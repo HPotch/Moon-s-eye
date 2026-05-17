@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3220982561491961263}
   - component: {fileID: 4304273897013743452}
   - component: {fileID: 5922055988410425564}
+  - component: {fileID: 1489739645386008241}
   m_Layer: 5
   m_Name: Message
   m_TagString: Untagged
@@ -117,7 +118,7 @@ MonoBehaviour:
   m_enableKerning: 0
   m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
-  checkPaddingRequired: 0
+  checkPaddingRequired: 1
   m_isRichText: 1
   m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
@@ -187,3 +188,15 @@ MonoBehaviour:
   targetHeight: {x: 0, y: 40}
   waitKeys: 
   opacityPercent: 0
+--- !u!114 &1489739645386008241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6259972441640060119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ea9410e3acb45a7eb06be51646e3976, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

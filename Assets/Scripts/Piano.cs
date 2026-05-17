@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,12 +32,15 @@ public class Piano : MonoBehaviour
     private List<int> _sequence = new List<int>(); // Sequence recording
     private MidiDevice _currentDevice;
     private bool _playingSequence = false;
+    private Vector3 _startLocalPos;
 
     private void Awake()
     {
         // Setup
         _image = GetComponent<Image>();
         _baseFrequency = GetFrequency(AudioMidiNumber);
+        
+        _startLocalPos = transform.localPosition;
     }
 
     private void Start()
@@ -53,8 +57,17 @@ public class Piano : MonoBehaviour
         
         _sequenceTimer -= Time.deltaTime;
         if (_sequenceTimer <= 0f) _sequence.Clear();
+        
+        
     }
 
+    private void LateUpdate()
+    {
+        CameraController camControl = GameManager.Instance.camcontrol;
+        transform.localPosition = _startLocalPos;
+        if (camControl) transform.position += new Vector3(0f, camControl.CamOffsetY, 0f);
+    }
+    
     private void UpdateCurrentDevice()
     {
         if (_currentDevice == MidiDevice.current) return;
