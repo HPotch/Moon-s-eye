@@ -36,7 +36,8 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        var inputMode = GameManager.Instance.currentInputMode;
+        GameManager GM = GameManager.Instance;
+        var inputMode = GM.currentInputMode;
         Vector2 moveVelocity = Vector2.zero;
 
         switch (inputMode)
@@ -49,8 +50,7 @@ public class PlayerController : MonoBehaviour
                 break;
         }
         
-        print(GameManager.Instance.talkingWith);
-        if (GameManager.Instance.pianoEnabled || GameManager.Instance.talkingWith != null) moveVelocity = Vector2.zero;
+        if (GM.pianoEnabled || GM.talkingWith || GM.inventoryEnabled) moveVelocity = Vector2.zero;
 
         float moveMultplier = 0f;
         if (moveVelocity == Vector2.zero)

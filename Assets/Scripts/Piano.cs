@@ -137,6 +137,11 @@ public class Piano : MonoBehaviour
         return frequency;
     }
 
+    public void ClearSequence()
+    {
+        _sequence.Clear();
+    }
+    
     public bool CheckSequence(List<int> referenceSequence)
     {
         if (_sequence.Count < referenceSequence.Count) return false; // If the sequence is shorter than the reference, it is definitely wrong, so we can skip the check

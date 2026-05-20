@@ -40,7 +40,7 @@ public class NPCDialogue : MonoBehaviour
     
     public void MatchVibe()
     {
-        _dialogueScript.SetText("Bond with me, press p to play piano and match my vibe!");
+        SetText("Bond with me, press p to play piano and match my vibe!");
         _talking = true;
         _dialogueStarted = false;
     }
@@ -113,6 +113,11 @@ public class NPCDialogue : MonoBehaviour
             waitTime += questionWaitTime;
         }
         _talking = false;
+    }
+
+    public void SetText(string text)
+    {
+        _dialogueScript.SetText(text);
     }
     
     public void SetTalk(string key)

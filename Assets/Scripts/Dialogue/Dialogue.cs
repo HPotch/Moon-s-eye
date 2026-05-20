@@ -8,10 +8,18 @@ public class Dialogue : MonoBehaviour
     // Settings
     [SerializeField] private float scrollSpeed = 0.02f;
     [NonSerialized] public bool type = true;
+    [SerializeField] private bool isTalk = false;
+
+    [Header("Only for talk")]
+    [SerializeField] private float camOffset = 0.1f;
     
     // References
+    [SerializeField] private RectTransform panelRt;
     private TextMeshPro _tmp;
     private TextMeshProUGUI _tmpUI;
+    private RectTransform _parentRect;
+    private Camera _mainCam;
+    
     
     // Private variables
     private string _targetText = "";
@@ -19,11 +27,15 @@ public class Dialogue : MonoBehaviour
     private int _currentCharacter = 0;
     private float _scrollTime = 0f;
     private bool _ui = false;
-    private RectTransform _parentRect;
+    private Vector3[] _panelCorners = new Vector3[4];
+    private Vector2 _startPos;
+
 
     private void Awake()
     {
         _parentRect = transform.parent.GetComponent<RectTransform>();
+        _mainCam = Camera.main;
+        _startPos = transform.position;
         
         _tmp = GetComponentInChildren<TextMeshPro>();
         if (_tmp is not null) return;
@@ -42,6 +54,45 @@ public class Dialogue : MonoBehaviour
         _currentText = _targetText[.._currentCharacter];
         ApplyText();
         _scrollTime = 0f;
+    }
+
+    private void LateUpdate()
+    {
+        if (isTalk) ClampToScreen();
+    }
+
+    private void ClampToScreen()
+    {
+        // Reset
+        transform.position = _startPos;
+        
+        // Get camera
+        float camHeight = _mainCam.orthographicSize * 2f;
+        float camWidth = camHeight * _mainCam.aspect;
+        Vector3 camPos = _mainCam.transform.position;
+        float multiplier = 0.5f - camOffset;
+        float camMinX = camPos.x - (camWidth * multiplier);
+        float camMaxX = camPos.x + (camWidth * multiplier);
+        float camMinY = camPos.y - (camHeight * multiplier);
+        float camMaxY = camPos.y + (camHeight * multiplier);
+
+        // Get panel
+        panelRt.GetWorldCorners(_panelCorners);
+        float panelMinX = _panelCorners[0].x;
+        float panelMaxX = _panelCorners[2].x;
+        float panelMinY = _panelCorners[0].y;
+        float panelMaxY = _panelCorners[2].y;
+        float offsetX = 0f;
+        float offsetY = 0f;
+        
+        // Calculate new position
+        if (panelMinX < camMinX) offsetX = camMinX - panelMinX; // Move right
+        else if (panelMaxX > camMaxX) offsetX = camMaxX - panelMaxX; // Move left
+        if (panelMinY < camMinY) offsetY = camMinY - panelMinY; // Move up
+        else if (panelMaxY > camMaxY) offsetY = camMaxY - panelMaxY; // Move down
+        
+        // Apply new position
+        if (offsetX != 0f || offsetY != 0f) transform.position += new Vector3(offsetX, offsetY, 0f);
     }
 
     public void SetText(string text)

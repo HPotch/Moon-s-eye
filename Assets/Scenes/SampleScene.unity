@@ -33978,8 +33978,8 @@ MonoBehaviour:
   octaveKey: 304
   pianoSound: {fileID: 8300000, guid: a6389f8f0857f7f0c9224b6b905e6ad2, type: 3}
   volume: 0.4
-  sequenceTime: 1
-  playSequenceTime: 0.2
+  sequenceTime: 1000
+  playSequenceTime: 0.5
 --- !u!114 &845093707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35121,9 +35121,9 @@ MonoBehaviour:
   pianoEnabled: 0
   inventoryEnabled: 0
   mouseOver: {fileID: 0}
-  confirmKeys: 650000000d000000750000004c010000
-  exitKeys: 1b0000004a010000
-  inventoryKeys: 090000004b01000028000000
+  confirmKeys: 650000000d000000750000004a010000
+  exitKeys: 1b0000004b010000
+  inventoryKeys: 090000004d01000028000000
   scrollUpKeys: 11010000180100004e010000
   scrollDownKeys: 12010000190100004f010000
   piano: {fileID: 0}
@@ -35761,11 +35761,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4767992732095265064, guid: f8697cb8625e20d7d8ea1dff60e63e70, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 21.100536
+      value: 5.6005363
       objectReference: {fileID: 0}
     - target: {fileID: 4767992732095265064, guid: f8697cb8625e20d7d8ea1dff60e63e70, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.927531
+      value: 3.9275308
       objectReference: {fileID: 0}
     - target: {fileID: 4767992732095265064, guid: f8697cb8625e20d7d8ea1dff60e63e70, type: 3}
       propertyPath: m_LocalPosition.z
@@ -35850,6 +35850,22 @@ PrefabInstance:
     - target: {fileID: 6201387476575700100, guid: f8697cb8625e20d7d8ea1dff60e63e70, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495925176960228335, guid: f8697cb8625e20d7d8ea1dff60e63e70, type: 3}
+      propertyPath: 'sequence.Array.data[0]'
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495925176960228335, guid: f8697cb8625e20d7d8ea1dff60e63e70, type: 3}
+      propertyPath: 'sequence.Array.data[1]'
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495925176960228335, guid: f8697cb8625e20d7d8ea1dff60e63e70, type: 3}
+      propertyPath: 'sequence.Array.data[2]'
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495925176960228335, guid: f8697cb8625e20d7d8ea1dff60e63e70, type: 3}
+      propertyPath: 'sequence.Array.data[3]'
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

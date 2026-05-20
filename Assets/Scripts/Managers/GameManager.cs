@@ -50,7 +50,8 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R)) SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         if (inventoryEnabled) pianoEnabled = false;
 
-        
+
+        if (talkingWith) return;
         foreach (var key in GameManager.Instance.inventoryKeys.Where(Input.GetKeyDown))
         {
             GameManager.Instance.inventoryEnabled = !GameManager.Instance.inventoryEnabled;

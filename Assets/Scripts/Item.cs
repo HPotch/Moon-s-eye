@@ -13,7 +13,6 @@ public class Item : MonoBehaviour
     public int childNum = 0;
     public bool Selected = false;
 
-    private TextMeshProUGUI _tmp;
     private Image _itemImage;
     private Inventory _inventory;
     [SerializeField] private Image selectImage;
@@ -24,7 +23,6 @@ public class Item : MonoBehaviour
     {
         childNum = transform.parent.childCount - 1;
         _itemImage = GetComponent<Image>();
-        _tmp = GetComponentInChildren<TextMeshProUGUI>();
         _inventory = transform.parent.GetComponent<Inventory>();
     }
 
@@ -50,6 +48,5 @@ public class Item : MonoBehaviour
         }
         
         _itemImage.sprite = ItemSprite;
-        _tmp.text = ItemAmount.ToString();
     }
 }

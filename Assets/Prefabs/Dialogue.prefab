@@ -568,7 +568,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &5716189510070622510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -599,3 +599,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollSpeed: 0.02
+  isTalk: 1
+  panelRt: {fileID: 6588391112730645631}
