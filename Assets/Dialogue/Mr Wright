@@ -1,10 +1,25 @@
 />A:I have never seen you before.;/B
-/B:That makes me uncomfortable.;/C
+/B:And that makes me uncomfortable.;/C
 /C:...;?1;2
-/D:Oh really? Another one of those? Everyone says that nowadays;/4
-/E:I don't like the way you're talking to me;
-
-?1:Eye's leaders sent me;
-?2:
-?3:
-?4:I've heard you know everyone, don't play games on me;E
+/D:Oh really? Another one of those? Everyone says that nowadays.;/E
+/E:I don't like people who lie;?6;7
+/F:Yes, yes, that is true, kid.;/F2
+/F2:That is why I'm so uncomfortable that I have not seen you in my long, long life!;/F3
+/F3:I do not like new things.;?3;4
+/G:Sure, you go ahead and tell your secrets to this strange old man.;?1;5
+/H:Like I said, I know everyone.;?8
+/J:Oh you can?;/K
+/K:But God I care so little;?9
+/L:That is true, kid. You're a smart one.;/M
+/M:You know I'm starting to like you.;?10
+?1:I was sent here to help you guys.;D
+?2:I've heard that you know everyone on Eye, is this true?;F
+?3:I could let you in on a little secret!;G
+?4:How can you be so sure that you haven't seen me?;L
+?5:I... I also want to learn everyone on Eye! That is my secret.;
+?6:How can you be so sure that I'm lying?;H
+?7:I'm not! I can prove it!;J
+?8:You don't know me though, you just told me that!;L
+?9:Who is God? Is that a figure from that place you say you were from?;L
+?10:Great! Can you tell me everything about that place... what was it called again?;<
+?11:Thank you, that means a lot. I've heard that you don't accept people;<

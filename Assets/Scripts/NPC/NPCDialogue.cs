@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -71,12 +72,8 @@ public class NPCDialogue : MonoBehaviour
 
     private void HandleExit()
     {
-        foreach (var key in GameManager.Instance.exitKeys)
-        {
-            if (!Input.GetKeyDown(key)) continue;
+        if (GameManager.Instance.exitKeys.Any(key => Input.GetKeyDown(key)) && !GameManager.Instance.pianoEnabled)
             Exit();
-            break;
-        }
     }
     
     private void HandleNext()

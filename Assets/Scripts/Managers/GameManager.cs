@@ -57,6 +57,12 @@ public class GameManager : MonoBehaviour
             GameManager.Instance.inventoryEnabled = !GameManager.Instance.inventoryEnabled;
         }
         if (inventory) inventory.transform.parent.gameObject.SetActive(inventoryEnabled);
+
+        foreach (var key in exitKeys.Where(Input.GetKeyDown))
+        {
+            inventoryEnabled = false;
+            pianoEnabled = false;
+        }
     }
 
     private void GetInputMode()

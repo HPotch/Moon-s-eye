@@ -31,8 +31,7 @@ Material:
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
-  disabledShaderPasses:
-  - MOTIONVECTORS
+  disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -71,21 +70,22 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _BloomCorrect: 0.11
-    - _BloomIntensity: 1.05
-    - _BloomSoftness: 0.37
+    - _BloomCorrect: 0.02
+    - _BloomIntensity: 0.41
+    - _BloomSoftness: 0.432
     - _BloomSpread: 0.005
-    - _BloomThreshold: 0.145
+    - _BloomThreshold: 0.083
     - _DistortionStrength: 0.2
     - _EnableExternalAlpha: 0
     - _Gamma: 0.76
-    - _JitterAmount: 0.44
-    - _JitterNoiseAmount: 0.817
+    - _JitterAmount: 0.17
+    - _JitterNoiseAmount: 0.804
     - _JitterSize: 270
-    - _JitterSpeed: 17.02
-    - _PixelAmount: 1.16
-    - _PixelPower: 0.98
+    - _JitterSpeed: 1.4
+    - _PixelAmount: 1.14
+    - _PixelPower: 1.63
     - _PixelSize: 0
+    - _PixelThickness: 0.83
     - _PrePixelBrightness: 2.42
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -97,12 +97,12 @@ Material:
     m_Colors:
     - _BOffset: {r: 0, g: 0, b: 0, a: 0}
     - _BloomColour: {r: 1, g: 0.92190343, b: 0.7860833, a: 0}
-    - _BloomSpread: {r: 15.7, g: 2.85, b: 0, a: 0}
+    - _BloomSpread: {r: 24.55, g: 2.85, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _GOffset: {r: 0, g: 0, b: 0, a: 0}
-    - _PixelColour: {r: 1, g: 1, b: 1, a: 0}
+    - _PixelColour: {r: 0.56656057, g: 0.56656057, b: 0.56656057, a: 0}
     - _PixelOffset: {r: 0, g: 0, b: 0, a: 0}
-    - _PixelSize: {r: 1.115, g: 1.115, b: 0, a: 0}
+    - _PixelSize: {r: 1.39375, g: 1.39375, b: 0, a: 0}
     - _ROffset: {r: 0, g: 0, b: 0, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

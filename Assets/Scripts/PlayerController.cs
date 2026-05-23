@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -78,6 +79,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleInteraction()
     {
+        GameManager gm = GameManager.Instance;
         GameObject closestNPC = null;
         var closestDistance = float.PositiveInfinity;
         for (var i = 0; i < NPCs.childCount; i++)
@@ -89,19 +91,16 @@ public class PlayerController : MonoBehaviour
             closestDistance = distance;
         }
 
-        GameManager.Instance.closestNPC = null;
-        if (!(closestDistance < interactionDistance) || closestNPC is null || closestNPC == GameManager.Instance.talkingWith) return;
-        GameManager.Instance.closestNPC = closestNPC;
-        
-        NPCManager manager = closestNPC.GetComponent<NPCManager>();
-        foreach (var key in GameManager.Instance.confirmKeys)
-        {
-            if (Input.GetKeyDown(key))
-            {
-                manager.Talk();
-                GameManager.Instance.talkingWith = closestNPC;
-            }
+        gm.closestNPC = null;
+        if (!(closestDistance < interactionDistance) || closestNPC is null || closestNPC == gm.talkingWith) return;
+        gm.closestNPC = closestNPC;
 
+        if (gm.inventoryEnabled || gm.pianoEnabled) return;
+        NPCManager manager = closestNPC.GetComponent<NPCManager>();
+        foreach (var key in gm.confirmKeys.Where(Input.GetKeyDown))
+        {
+            manager.Talk();
+            gm.talkingWith = closestNPC;
         }
     }
 
