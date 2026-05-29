@@ -1,0 +1,45 @@
+/>A:Hi, I'm Devadatta !;/B
+/B:You're from Eye right? I feel like I've seen you before .;?1;2
+/C:West ? Do you mean Moonside ? I've heard that crazy old guy call it 'West' once .;3
+/D:Great ! I don't like Moonfolk .;/E
+/E:You know what that one filthy Moonfolk did ?;?4;5;5b
+/F:You really make me say his name . I mean Ione Gaia, yuck .;/G
+/G:He is the Moonfolk that leads that faction "The Gaians" .;?6;5b
+/H:Yes of course ! What else ?! You have heard about this right ?!;?6b;6c
+/H2:You're weird .;/J
+/I:If they never came here to the beautiful Eye, none of this would've happened !;/J
+/I2:That Ione Gaia guy, yuck .;/G
+/J:But since you were speaking in Earthly terms, you should speak to Mr. Wright, he claims to be from earth .;/K
+/K:He knows everyone on Eye, though he doesn't accept people easily .;?7
+/L:It's a bit Cloudside from here .;?8;9
+/M:How do you not know this ? I think in that Earth language they call it 'Yeast' or something .;?9;10;10b
+/M2:Feast ?;?10;10c
+/M3:Beast then?;?10;10d
+/M4:Fuck off .;?10
+/N:Sure, whatever .;?9
+/O:Wait before you go !;/P
+/P:You are crazy man . I have a knife .;?11;12
+/Q:If you meet Ione, I want you to kill him . I'm too scared to do it .;?13;14
+/R:Thank you .;<
+/S:Just take it !;<
+
+?1:Yes, I live here in the West so you may have seen me around .;C
+?2:Yeah . I don't live on the West side though .;C
+?3:Yes, of course I mean Moonside !;D
+?4:Who do you mean ?;F
+?5:I don't .;F
+?5b:Why do you hate Moonfolk so much ?;I
+?6:The music-hating group ?;H
+?6b:Yes .;J
+?6c:No .;H2
+?7:Where does Mr. Wright live ?;L
+?8:Cloudside ?;M
+?9:Okay .;O
+?10:It's East .;N
+?10b:Almost .;M2
+?10c:So close .;M3
+?10d:Still no .;M4
+?11:Whoah take it easy !;Q
+?12:Okay ?;Q
+?13:Sure .;R
+?14:I don't want it .;S

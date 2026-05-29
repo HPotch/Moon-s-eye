@@ -3,13 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Minis;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class Piano : MonoBehaviour
 {
     // Settings
-    [SerializeField] private KeyCode onOffKey = KeyCode.P;
+    
     [SerializeField] private Sprite[] sprites;
     [SerializeField] private KeyCode[] keys;
     [SerializeField] private int[] midiNumbers;
@@ -33,6 +35,7 @@ public class Piano : MonoBehaviour
     private MidiDevice _currentDevice;
     private bool _playingSequence = false;
     private Vector3 _startLocalPos;
+    private GameManager _gm;
 
     private void Awake()
     {
@@ -41,29 +44,39 @@ public class Piano : MonoBehaviour
         _baseFrequency = GetFrequency(AudioMidiNumber);
         
         _startLocalPos = transform.localPosition;
+        _gm = GameManager.Instance;
     }
 
     private void Start()
     {
-        GameManager.Instance.piano ??= this;
+        _gm.piano ??= this;
     }
 
     private void Update()
     {
         UpdateCurrentDevice();
-        if (Input.GetKeyDown(onOffKey)) GameManager.Instance.pianoEnabled = !GameManager.Instance.pianoEnabled;
-        if (_currentDevice is not null) GameManager.Instance.pianoEnabled = false; // Skip keyboard input if midi device is attached
-        if (GameManager.Instance.pianoEnabled) SetSprite();
+        if (_gm.pianoKeys.Any(Input.GetKeyDown))
+        {
+            _gm.pianoEnabled = !_gm.pianoEnabled;
+            ClearSequence();
+        }
+
+        if (_currentDevice is not null)
+        {
+            _gm.pianoEnabled = false; // Skip keyboard input if midi device is attached
+            _gm.MIDIAttached = true;
+        }
+        else _gm.MIDIAttached = false;
+        
+        if (_gm.pianoEnabled) SetSprite();
         
         _sequenceTimer -= Time.deltaTime;
         if (_sequenceTimer <= 0f) _sequence.Clear();
-        
-        
     }
 
     private void LateUpdate()
     {
-        CameraController camControl = GameManager.Instance.camcontrol;
+        CameraController camControl = _gm.camcontrol;
         transform.localPosition = _startLocalPos;
         if (camControl) transform.position += new Vector3(0f, camControl.CamOffsetY, 0f);
     }
@@ -170,6 +183,7 @@ public class Piano : MonoBehaviour
         _playingSequence = true;
         foreach (var t in sequence)
         {
+            if (!_gm.pianoEnabled) break;
             PlayNote(t);
             yield return new WaitForSeconds(playSequenceTime);
         }

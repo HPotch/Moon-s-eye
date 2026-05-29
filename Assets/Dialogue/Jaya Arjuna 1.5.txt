@@ -1,0 +1,5 @@
+/>A:Please read the letter and then get back to me .;?1;2
+/B:Press [Tab] on keyboard or [Y] on controller, then select the letter !;<
+
+?1:Okay .;<
+?2:How do I do that ?;B

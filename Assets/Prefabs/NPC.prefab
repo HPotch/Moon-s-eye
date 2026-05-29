@@ -150,8 +150,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91d91e57c53ad077b883979423629e8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goodFile: Assets/Dialogue/MaxGood
-  badFile: Assets/Dialogue/MaxBad
+  goodFile: {fileID: 0}
+  badFile: {fileID: 0}
   questionWaitTime: 0.2
   dialogueOffset: {x: 0, y: 1}
   onDialogueFinished:

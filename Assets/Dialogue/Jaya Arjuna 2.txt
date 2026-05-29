@@ -1,0 +1,46 @@
+/>A:So you remember the letter now ?;?1;2
+/B:Good !;/E
+/C:I'm questioning if you are the right choice then .;/D
+/D:Well .. I guess this is my only option .;/E
+/E:So you know that music is very important on this island .;?3;4;5
+/F:Very well, do you have any experience with music ?;?6;7
+/G:That is so nice ! You're cut out for this task, you are definitely the right choice .;?8;9
+/H:That's alright . You'll learn quick, I can feel it .;?8;9
+/I:So yes, you'll have to play some music .;/J
+/J:Everyone you meet will ask you to bond first, that is how we communicate here .;/K
+/K:I got you a small piano you can take with you, press 'p' on your keyboard to open or close it ! (or use MIDI!);?10;11;12;13
+/K2:MIDI keyboards are the ones you can attach to your computer . If you have one, I recommend you use it !;/K
+/L:You're welcome .;/Q
+/M:You crazy frugal Moonfolk ! Yes, you can keep it if you want .;/Q
+/N:Yes detective, they were, and still are . I used to make the instruments, they destroyed my shop .;/O
+/O:I found one more keyboard hidden away while digging through the ruins though .;/P
+/P:Anyway .;/Q
+/Q:Try playing all the notes once .;?14;15
+/R:So you press 'p' to open the piano, or just any key on a MIDI .;/S
+/S:Then, you can play with the middle row of your letter keyboard, and press shift to move up and octave . (octave = 8 notes);/Q
+/T:Good job ! To bond with someone, just talk to them and match the melody that they play .;/U
+/U:Are you ready to save The Land of the Caring Eye ?;?16;17
+/V:Good luck, let Danzhai be with you !;<
+/W:What would you like to hear again ?;?18;19;20;21
+
+?1:Yes, I do !;B
+?2:No, I don't remember it, that copy was very useful .;C
+?3:Yes, I heard about it on Moon, where I live .;F
+?4:That does make sense now that I read your letter !;F
+?5:Do I have to do anything with music ? I have absolutely no musical abilities !;H
+?6:Yes .;G
+?7:No .;H
+?8:Thanks, I guess .;I
+?9:Good to hear .;I
+?10:Thank you !;L
+?11:Can I keep it ??;M
+?12:Wait how did you get this ? I thought instruments were "hunted down" ?;N
+?13:What is MIDI ?;K2
+?14:Done !;T
+?15:How do I do that ?;R
+?16:Yes !;V
+?17:No .;W
+?18:Restart this entire conversation .;A
+?19:That music is important .;E
+?20:How to bond with people .;K
+?21:Nevermind, I am ready !;V

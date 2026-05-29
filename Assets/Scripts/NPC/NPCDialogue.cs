@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -8,13 +7,14 @@ public class NPCDialogue : MonoBehaviour
 {
     // Settings
     [Header("Dialogue")]
-    [SerializeField] private string goodFile = ""; // The good file that is decoded to dialogue
-    [SerializeField] private string badFile = ""; // The bad file that is decoded to dialogue
+    [SerializeField] private TextAsset goodFile; // The good file that is decoded to dialogue
+    [SerializeField] private TextAsset badFile; // The bad file that is decoded to dialogue
     [SerializeField] private float questionWaitTime = 0.3f;
     [SerializeField] private Vector2 dialogueOffset = new Vector2(0f, 1f);
     
     // Events
-    [Header("Events")] [SerializeField] private UnityEvent onDialogueFinished;
+    [Header("Events")]
+    [SerializeField] private UnityEvent onDialogueFinished = new UnityEvent();
 
     // References
     [Header("References")]
@@ -50,8 +50,12 @@ public class NPCDialogue : MonoBehaviour
     {
         if (_startTalk == "")
         {
-            if (good) DecodeDialogue.DecodeTextFile(goodFile, out _talks, out _questions, out _startTalk);
-            else DecodeDialogue.DecodeTextFile(badFile, out _talks, out _questions, out _startTalk);
+            if (good && goodFile != null) 
+                DecodeDialogue.DecodeText(goodFile.text, goodFile.name, out _talks, out _questions, out _startTalk);
+            else if (!good && badFile != null) 
+                DecodeDialogue.DecodeText(badFile.text, badFile.name, out _talks, out _questions, out _startTalk);
+            else
+                Debug.LogError("NPCDialogue: Trying to start dialogue, but the corresponding TextAsset is missing!", this);
         }
         SetTalk(_startTalk);
         _dialogueStarted = true;
@@ -88,7 +92,7 @@ public class NPCDialogue : MonoBehaviour
                 if (cd.End)
                 {
                     Exit();
-                    onDialogueFinished.Invoke();
+                    onDialogueFinished?.Invoke();
                     return;
                 }
                 if (cd.TalkNext) { SetTalk(cd.NextTalk); return; }
@@ -139,5 +143,9 @@ public class NPCDialogue : MonoBehaviour
         _dialogue.transform.position += new Vector3(dialogueOffset.x, dialogueOffset.y, 0f);
         _dialogueScript = _dialogue.GetComponent<Dialogue>();
     }
-    
+
+    public void LoadText(TextAsset text)
+    {
+        DecodeDialogue.DecodeText(text.text, text.name, out _talks, out _questions, out _startTalk);
+    }
 }

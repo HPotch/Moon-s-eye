@@ -1,0 +1,11 @@
+/>A:I have never seen you before .;/B
+/B:And that makes me uncomfortable .;/C
+/C:...;?1;2
+/D:Everyone knows that Moonfolk don't move here anymore .;/E
+/E:And I know everyone on the island .;/G
+/F:Yes, yes, that is true .;/G
+/G:Now tell my why you came here, I don't have all day .;?3;4
+
+?1:I'm from Moon, you might not have seen me around .;D
+?2:I've heard that you know everyone on Eye, is this true ?;F
+?3:

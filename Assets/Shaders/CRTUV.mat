@@ -31,7 +31,8 @@ Material:
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
-  disabledShaderPasses: []
+  disabledShaderPasses:
+  - MOTIONVECTORS
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -74,8 +75,8 @@ Material:
     - _BloomIntensity: 0.41
     - _BloomSoftness: 0.432
     - _BloomSpread: 0.005
-    - _BloomThreshold: 0.083
-    - _DistortionStrength: 0.2
+    - _BloomThreshold: 1
+    - _DistortionStrength: -0
     - _EnableExternalAlpha: 0
     - _Gamma: 0.76
     - _JitterAmount: 0.17
@@ -89,7 +90,7 @@ Material:
     - _PrePixelBrightness: 2.42
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Scale: 0.91
+    - _Scale: 0.94
     - _VignetteAffect: 0.454
     - _VignetteAmount: 2.35
     - _VignettePower: 3.3

@@ -56,7 +56,7 @@ public class DialogueQuestion : MonoBehaviour
     {
         _collider.size = new Vector2(_rectTransform.rect.width, _rectTransform.rect.height);
 
-        if (GameManager.Instance.mouseOver == gameObject || Selected)
+        if ((GameManager.Instance.mouseOver == gameObject && GameManager.Instance.currentInputMode == GameManager.InputMode.Keyboard) || Selected)
         {
             _image.sprite = selectSprite;
             if (Input.GetMouseButtonDown(0)) Select();

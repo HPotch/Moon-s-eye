@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -20,21 +21,30 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public GameObject closestNPC = null;
-    public GameObject talkingWith = null;
+    [Header("Static References")]
     public Inventory inventory;
+    public Transform canvas = null;
     public DialogueQuestionContainer dqc = null;
-    public bool pianoEnabled = false;
-    public bool inventoryEnabled = false;
-    public GameObject mouseOver = null;
+    public Piano piano;
+    public CameraController camcontrol;
+    [Header("Keycodes")]
     public List<KeyCode> confirmKeys = new List<KeyCode>();
     public List<KeyCode> exitKeys = new List<KeyCode>();
     public List<KeyCode> inventoryKeys = new List<KeyCode>();
     public List<KeyCode> scrollUpKeys = new List<KeyCode>();
     public List<KeyCode> scrollDownKeys = new List<KeyCode>();
+    public List<KeyCode> pianoKeys = new List<KeyCode>() {KeyCode.P, KeyCode.JoystickButton2};
+    [Header("Changing References")]
+    public GameObject closestNPC = null;
+    public GameObject mouseOver = null;
+    public GameObject talkingWith = null;
+    [Header("Booleans")]
+    public bool pianoEnabled = false;
+    public bool inventoryEnabled = false;
+    public bool MIDIAttached = false;
+    [field: Header("Events")]
+    public event Action OnScrollRead;
 
-    public Piano piano;
-    public CameraController camcontrol;
     public enum InputMode {Controller, Keyboard};
     public InputMode currentInputMode = InputMode.Keyboard;
 
@@ -72,5 +82,10 @@ public class GameManager : MonoBehaviour
         bool mouseUpdate = Input.GetMouseButton(0) || Input.GetMouseButton(1) ||  Input.GetMouseButtonDown(2);
         if (keyboardUpdate || mouseUpdate) currentInputMode = InputMode.Keyboard;
         if (Gamepad.current.wasUpdatedThisFrame) currentInputMode = InputMode.Controller;
+    }
+
+    public void ReadScroll()
+    {
+        OnScrollRead?.Invoke();
     }
 }

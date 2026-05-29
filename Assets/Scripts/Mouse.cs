@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Mouse : MonoBehaviour
 {
-    [SerializeField] private GameObject camera;
+    [SerializeField] private GameObject cam;
     [SerializeField] private float distortionFix = 0f;
     [SerializeField] private float smoothness = 30f;
     private Camera _cam;
@@ -13,7 +13,7 @@ public class Mouse : MonoBehaviour
     private void Awake()
     {
         _startZ = transform.position.z;
-        _cam = camera.GetComponent<Camera>();
+        _cam = cam.GetComponent<Camera>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 

@@ -1,0 +1,17 @@
+/>A:Hi !;?1;2
+/B:So... okay, first off, you know you're not supposed to tell anybody who you are, alright ?;/B2
+/B2:I mean, I'm glad you came and all. Thanks for that, we could really use it .;/C
+/C:You don't remember the letter I sent you ?;?3
+/D:Well than I'm glad I brought you a copy ! Talk to me after you've read it .;<
+/E:I'm glad you're following the instructions I gave you in the letter !;/F
+/F:Remember to keep your real identity hidden, they can't know who you really are .;?4;5
+/G:Great, great, very nice. Do you already have a plan for how you will tackle this very serious issue we've got going on ?;?6;7
+/H:What? Just why ?;/C
+
+?1:Hey man it's me, I came to help !;B
+?2:Uhm... hello ?;E
+?3:No, please remind me of the letter I got .;D
+?4:Yes, sure. I'll also follow the uhm.. other rules !;G
+?5:Who are "they" ?;C
+?6:What is the "very serious issue" ?;C
+?7:I'm sorry man I've been blagging it .;H

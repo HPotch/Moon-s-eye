@@ -28,23 +28,33 @@ public static class DecodeDialogue
         Question
     }
     
-    public static void DecodeTextFile(string path, out Dictionary<string, Classes.Talk> talks, out Dictionary<string, Classes.Question> questions, out string startTalk)
+    public static void DecodeText(string fileContent, string sourceName, out Dictionary<string, Classes.Talk> talks, out Dictionary<string, Classes.Question> questions, out string startTalk)
     {
         Clear();
-        // Set script-wide variables
-        _filePath = path;
-        _lineNum = 0;
+        _filePath = sourceName;
+        _lineNum = 1;
         
-        // Decode
-        string[] lines = File.ReadAllLines(_filePath);
-        foreach (string line in lines) // Loop through all lines
+        if (string.IsNullOrEmpty(fileContent))
         {
+            Debug.LogError($"DecodeDialogue: The file content for '{sourceName}' is empty!");
+            talks = _talks;
+            questions = _questions;
+            startTalk = _startTalk;
+            return;
+        }
+
+        string[] lines = fileContent.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+        
+        foreach (string line in lines) 
+        {
+            if (string.IsNullOrWhiteSpace(line)) continue; 
+
             DecodeLine(line);
             _lineNum += 1;
         }
         
         if (_startTalk == "") Debug.LogError(_filePath + ": No line defines a start, one Talk line should have '>' right after the type declaration, to mark the start.");
-        // Return
+        
         talks = _talks; 
         questions = _questions;
         startTalk = _startTalk;
