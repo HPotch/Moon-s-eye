@@ -2,10 +2,23 @@
 /B:And that makes me uncomfortable .;/C
 /C:...;?1;2
 /D:Everyone knows that Moonfolk don't move here anymore .;/E
-/E:And I know everyone on the island .;/G
+/E:Ever since Ione Gaia, Moonfolk aren't allowed to move anymore .;/G
 /F:Yes, yes, that is true .;/G
-/G:Now tell my why you came here, I don't have all day .;?3;4
+/G:Now tell my why you came here, I don't have all day !;?3;4;8
+/H:Well, than you came to the right place, I am from Earth .;/I
+/I:My name is Mr. Wright by the way. Good to meet another someone interested in Earth .;?5;6
+/J:On Earth, cultures actually learn from one another . We could learn from that over here .;/L
+/K:There are good things though .;/J
+/L:Earthly cookies are also the best . You can get them at my Nephew's, he is a baker .;/M
+/M:He lives Greenside from here .;?8;7;4
+/N:Ahum... yes, South . I mean South .;?8;4
+/O:Ione Gaia is pathetic . I think he's just jealous of the people who can play so well .;?3;4;8
 
 ?1:I'm from Moon, you might not have seen me around .;D
 ?2:I've heard that you know everyone on Eye, is this true ?;F
-?3:
+?3:I'm interested in your view on Earth .;H
+?4:Can you tell me more about Ione Gaia ?;O
+?5:I'm actually not interested, Earth seems like a bad place .;K
+?6:What is so good about Earth ?;J
+?7:You mean South, I thought you were from Earth, dude .;N
+?8:Bye .;<

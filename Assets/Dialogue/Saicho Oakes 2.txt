@@ -1,0 +1,30 @@
+/>A:And, do you have an answer ?;?1;2;3
+/B:Oh no ! Tell me .;?3;4
+/C:Bummer, get back to me once you know .;<
+/D:Are you serious ?? Who doesn't like cakes ?!;/H
+/E:Why is that bad ? I can make a chocolate cake .;?5
+/F:Who doesn't like cakes ?!;?6
+/G:Tell me !;?7
+/H:Well, I guess I will learn how to make chocolate .;/I
+/I:Better get started quick !;
+/J:Thanks man !;/K
+/K:...;/L
+/L:Oh right your Earthly cookies ! I got them here .;/M
+/M:I actually like them a lot too, do you mind ?;?10;11
+/N:Thanks .;/P
+/O:Well, I guess I have another batch in the oven, I will wait for those then .;/Q
+/P:Select the cookies in your inventory and let's eat together .;<
+/Q:They will be ready in 2 minutes .;/R
+/R:Once they are, select the cookies in your inventory and let's eat together .;<
+
+?1:Yes, you're not gonna like it .;B
+?2:I'm sorry, no .;C
+?3:She doesn't like cakes .;D
+?4:Chocolate is her thing .;E
+?5:No, you don't understand . She likes chocolate, not cakes !;D
+?6:She really likes something else though !;G
+?7:She likes chocolate a lot .;H
+?8:Okay, good luck !;J
+?9:Wait, how about my cookies ?;L
+?10:No, not at all .;N
+?11:I earned these though ...;O

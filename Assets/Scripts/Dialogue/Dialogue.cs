@@ -2,6 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class Dialogue : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class Dialogue : MonoBehaviour
     [SerializeField] private float scrollSpeed = 0.02f;
     [NonSerialized] public bool type = true;
     [SerializeField] private bool isTalk = false;
+    [SerializeField] private AudioClip blip;
 
     [Header("Only for talk")]
     [SerializeField] private float camOffset = 0.1f;
@@ -50,6 +52,7 @@ public class Dialogue : MonoBehaviour
         _scrollTime += Time.deltaTime;
         
         if (!(_scrollTime >= scrollSpeed) || _currentCharacter >= _targetText.Length) return;
+        AudioManager.Instance.StartClip(blip, 0.5f, Random.Range(0.9f, 1.1f));
         _currentCharacter++;
         _currentText = _targetText[.._currentCharacter];
         ApplyText();

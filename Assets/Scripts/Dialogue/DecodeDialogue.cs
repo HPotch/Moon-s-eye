@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
 
 public static class DecodeDialogue
 {
@@ -63,8 +62,8 @@ public static class DecodeDialogue
     private static void Clear()
     {
         _startTalk = "";
-        _talks.Clear();
-        _questions.Clear();
+        _talks = new Dictionary<string, Classes.Talk>();
+        _questions = new Dictionary<string, Classes.Question>();
     }
 
     private static void DecodeLine(string line)

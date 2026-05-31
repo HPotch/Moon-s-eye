@@ -24,6 +24,7 @@ public class Piano : MonoBehaviour
     
     // References
     private Image _image;
+    private RectTransform _rt;
 
     // Static
     private const int AudioMidiNumber = 66; //(SHOULD BE ADJUSTED TO THE PIANOSOUNDS MIDI NUMBER!)
@@ -43,7 +44,7 @@ public class Piano : MonoBehaviour
         _image = GetComponent<Image>();
         _baseFrequency = GetFrequency(AudioMidiNumber);
         
-        _startLocalPos = transform.localPosition;
+        _startLocalPos = _startLocalPos = transform.localPosition; 
         _gm = GameManager.Instance;
     }
 
@@ -72,13 +73,10 @@ public class Piano : MonoBehaviour
         
         _sequenceTimer -= Time.deltaTime;
         if (_sequenceTimer <= 0f) _sequence.Clear();
-    }
-
-    private void LateUpdate()
-    {
+        
         CameraController camControl = _gm.camcontrol;
         transform.localPosition = _startLocalPos;
-        if (camControl) transform.position += new Vector3(0f, camControl.CamOffsetY, 0f);
+        if (camControl) transform.position += new Vector3(0f, camControl.CamOffsetY, 0f); 
     }
     
     private void UpdateCurrentDevice()
@@ -100,7 +98,7 @@ public class Piano : MonoBehaviour
             
                 if (!Input.GetKey(key)) continue;
                 var octave = Input.GetKey(octaveKey);
-                var num = i + 1 + (octave ? 7 : 0); // Number in the arrays of the pressed key
+                var num = i + 1 + (octave ? 12 : 0); // Number in the arrays of the pressed key
 
                 if (num >= sprites.Length) continue;
                 // Set sprite and play sound

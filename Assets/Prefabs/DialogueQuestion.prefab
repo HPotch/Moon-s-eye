@@ -135,6 +135,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollSpeed: 0.02
+  isTalk: 0
+  blip: {fileID: 8300000, guid: f92c9231550a33b73a86efe4d40d74fd, type: 3}
+  camOffset: 0.1
+  panelRt: {fileID: 0}
 --- !u!114 &5465531038290752379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,6 +188,8 @@ MonoBehaviour:
   animationAxis: {x: 0.9, y: 0, z: 0}
   selectSprite: {fileID: 21300000, guid: 3a3840fb422f2ab1bae857678875672f, type: 3}
   noSelectSprite: {fileID: 21300000, guid: 7296335a30c72e7beb53114edf8b0418, type: 3}
+  confirm: {fileID: 8300000, guid: 8c5404b60db7956b3b487933ccaaa590, type: 3}
+  select: {fileID: 8300000, guid: 1d7220306c0358eb5afd875020f7da02, type: 3}
 --- !u!114 &7188683251830588118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -270,7 +276,6 @@ GameObject:
   - component: {fileID: 8381546343417213656}
   - component: {fileID: 3442524722328218527}
   - component: {fileID: 3811974396779106504}
-  - component: {fileID: 1853679085037533355}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -396,15 +401,3 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &1853679085037533355
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3573632438867060397}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ea9410e3acb45a7eb06be51646e3976, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

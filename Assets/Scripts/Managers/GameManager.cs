@@ -57,7 +57,8 @@ public class GameManager : MonoBehaviour
     {
         GetInputMode();
         
-        if (Input.GetKeyDown(KeyCode.R)) SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        // Debug
+        if (Input.GetKeyDown(KeyCode.R) && Input.GetKey(KeyCode.LeftShift)) SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         if (inventoryEnabled) pianoEnabled = false;
 
 

@@ -1,12 +1,20 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
 
     [SerializeField] private GameObject audioObject;
-
     [SerializeField] private GameObject audioParent;
+
+    [SerializeField] private AudioClip loopMusic;
+    [SerializeField] private float musicVolume = 0.5f;
+    [SerializeField] private float musicFadeTime = 0.75f;
+
+    private float _fadeTimer = 0f;
+    private AudioSource _musicSource;
     
     private void Awake()
     {
@@ -19,24 +27,47 @@ public class AudioManager : MonoBehaviour
         else
             Destroy(gameObject);
     }
-    
-    public void StartClip(AudioClip clip, float volume = 1f, float pitch = 1f)
+
+    private void Start()
+    {
+        _musicSource = StartClip(loopMusic, 1f, 1f, true);
+    }
+
+    private void Update()
+    {
+        GameManager gm = GameManager.Instance;
+        _fadeTimer += Time.deltaTime / musicFadeTime * (gm.pianoEnabled ? 1f : -1f);
+        _fadeTimer = Mathf.Clamp01(_fadeTimer);
+        
+        if (_fadeTimer >= 1f)
+        {
+            _musicSource.Pause();
+            return;
+        }
+        if (!_musicSource.isPlaying) _musicSource.UnPause();
+        if (_fadeTimer > 0f) _musicSource.volume = musicVolume * (1f - _fadeTimer);
+    }
+
+    public AudioSource StartClip(AudioClip clip, float volume = 1f, float pitch = 1f, bool loop = false)
     {
         GameObject sound = Instantiate(audioObject, audioParent.transform);
         
         AudioSource source = sound.GetComponent<AudioSource>();
-        if(source == null) { Debug.LogWarning("soundObject doesnt contain AudioSource!"); return;}
+        if(!source) { Debug.LogWarning("soundObject doesnt contain AudioSource!"); return null;}
         
         source.clip = clip;
         source.volume = volume;
         source.pitch = pitch;
+        source.loop = loop;
         
         AudioObject ao = source.GetComponent<AudioObject>();
-        if(ao == null) { Debug.LogWarning("soundObject doesnt contain AudioObject!"); return;}
-        ao.soundTime = clip.length;
+        if(!ao) { Debug.LogWarning("soundObject doesnt contain AudioObject!"); return null;}
+        ao.soundTime = loop ? Mathf.Infinity : clip.length;
         
         sound.name = clip.name;
         source.Play();
+        
+        return source;
     }
 
     public void StartRandomClip(AudioClip[] clips, float volume = 1f, float pitch = 1f)

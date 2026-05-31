@@ -1,0 +1,27 @@
+/>A:You again ?;?1;2
+/B:I think we've talked enough .;?1B;1C
+/C:What is it ?;?3;4;5
+/D:Why do you care ?;?3B;3C
+/E:I knew you were weird, but who goes around asking strangers for their favorite cake ?;?3C
+/F:Okay ?;?4;5
+/G:December 14th, it's still a long time . I turned 129 not long ago !;?4B;4C
+/H:No it isn't ! Mr. Wright is 482 if I'm right .;?4C
+/I:Mostly just chocolate .;?3;5
+/J:Like a cake ?;?5B;5C
+/K:I don't like cakes, chocolate is my thing .;/M
+/L:Great ! I don't like cakes .;/M
+/M:I also think we've really talked enough though .;<
+
+?1:Hi, we need to talk .;B
+?1B:I came for something specific though .;C
+?1C:Oh... okay .;<
+?2:Yes, I came for something .;C
+?3:What is your favorite cake ?;D
+?3B:I'm just curious .;E
+?3C:Never mind .;F
+?4:When is your birthday ?;G
+?4B:Thas old .;H
+?4C:Cool, what do you like to serve your friends on a birthday ?;I
+?5:How about something sweet to chew on while we talk ?;J
+?5B:Yes .;K
+?5C:No .;L

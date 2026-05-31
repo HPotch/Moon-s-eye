@@ -1,0 +1,13 @@
+/>A:Another customer ? This is such a good day !;?1
+/B:Oh dear...;/C
+/C:I haven't baked them in years . No one likes them .;?2
+/D:Okay . I'll do you this :;/E
+/E:There's this girl right . I want to ask her out .;/F
+/F:I think I should bake her favorite cake to up my chances .;/G
+/G:Can you find out what her favorite flavour is ?;?3
+/H:Yes, of course . The girl I'm talking about is Devadatta, but don't tell anyone !;?4
+
+?1:I heard about your Earth cookies .;B
+?2:I really want to taste 'em though .;D
+?3:Will you bake the cookies then ?;H
+?4:Okay, bye !;<

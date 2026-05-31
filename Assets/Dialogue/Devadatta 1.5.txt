@@ -1,0 +1,17 @@
+/>A:What is it?;?1;2
+/B:You don't know what that man did to our perfectly stable state .;?3;4
+/C:It's the best idea that I have .;/I
+/D:In his opinion, Eyefolk, like me, are softies . We aren't used to any evil, you know ?;/E
+/E:On Eye, everything used to be peaceful and beautiful, that's why we had time for our music .;/F
+/F:Now some rando Moonfolk forbid it all, and destroyed all our most priced possessions .;?5
+/G:Right !;?7
+/H:Don't you dare say that .;?7
+/I:Now go and kill him if you can .;<
+
+?1:Actually, never mind .;<
+?2:Why the aggression ?;B
+?3:I do though, you're not gonna make it stop by killing him. Others will just take his place .;C
+?4:You're right, please tell me .;D
+?5:It's awful .;G
+?6:Maybe he has a point .;H
+?7:You're not gonna make it stop by killing him. Others will just take his place .;C

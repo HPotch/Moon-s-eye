@@ -19,10 +19,15 @@ public class Card : MonoBehaviour
     private bool _popUp = true;
     private bool _exit = false;
     private Color _blurStartColor;
+    private Vector2 _buttonStartPos;
 
     private void Awake()
     {
         _blurStartColor = blur.color;
+        image.localScale = Vector3.zero;
+        button.localScale = Vector3.zero;
+        blur.color = new Color(_blurStartColor.r, _blurStartColor.g, _blurStartColor.b, 0f);
+        _buttonStartPos = button.position;
     }
     
     private void Update()
@@ -52,8 +57,8 @@ public class Card : MonoBehaviour
         float t = exitAnimation.Evaluate(Mathf.Clamp01(_timer));
         float r = Mathf.Lerp(0f, 1f, t);
         image.position = new Vector2(r * image.rect.width, 0f);
-        button.position = new Vector2(r * image.rect.width, 0f);
-        blur.color = new Color(_blurStartColor.r, _blurStartColor.g, _blurStartColor.b, r);
+        button.position = _buttonStartPos + new Vector2(r * image.rect.width, 0f);
+        blur.color = new Color(_blurStartColor.r, _blurStartColor.g, _blurStartColor.b, 1f - r);
         if (!(_timer > 1f)) return;
         _exit = false;
         if (destroyOnExit) Destroy(gameObject);
@@ -69,6 +74,7 @@ public class Card : MonoBehaviour
     public void StartExit()
     {
         if (_popUp) return;
+        _timer = 0f;
         _exit = true;
     }
 }

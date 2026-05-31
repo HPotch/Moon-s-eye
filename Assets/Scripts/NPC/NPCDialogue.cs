@@ -14,7 +14,7 @@ public class NPCDialogue : MonoBehaviour
     
     // Events
     [Header("Events")]
-    [SerializeField] private UnityEvent onDialogueFinished = new UnityEvent();
+    public UnityEvent onDialogueFinished = new UnityEvent();
 
     // References
     [Header("References")]

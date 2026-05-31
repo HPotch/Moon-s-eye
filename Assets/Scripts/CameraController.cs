@@ -24,8 +24,9 @@ public class CameraController : MonoBehaviour
 
     private void Awake()
     {
-        if (target is null) Debug.LogError("You should set a target to the cameraController dummy");
+        if (target is null) Debug.LogError("You should set a target to the cameraController, dummy");
         _zPos = transform.position.z;
+        transform.position = target.transform.position;
     }
     
     private void FixedUpdate()
@@ -33,7 +34,7 @@ public class CameraController : MonoBehaviour
         if (fixedUpdate) Move();
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         HandlePianoOffset();
         if (!fixedUpdate) Move();

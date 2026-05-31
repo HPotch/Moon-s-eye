@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 452075885617598935}
   - component: {fileID: 5969043209651465477}
   - component: {fileID: 3895577932091096834}
+  - component: {fileID: 3484407218487226757}
   m_Layer: 5
   m_Name: Text (TMP) (1)
   m_TagString: Untagged
@@ -136,6 +137,22 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3484407218487226757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 317338822374516134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bab52fbcbb5f26757aaf9cf9912ac2fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startBracket: '['
+  keyboardKey: E to continue
+  controllerKey: X to continue
+  endBracket: ']'
 --- !u!1 &3261759158798197999
 GameObject:
   m_ObjectHideFlags: 0
@@ -541,10 +558,10 @@ Canvas:
   m_OverridePixelPerfect: 1
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 25
+  m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 819467731
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &9015137750146490189
 MonoBehaviour:
@@ -568,7 +585,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &5716189510070622510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -600,4 +617,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scrollSpeed: 0.02
   isTalk: 1
+  blip: {fileID: 8300000, guid: f92c9231550a33b73a86efe4d40d74fd, type: 3}
+  camOffset: 0.1
   panelRt: {fileID: 6588391112730645631}

@@ -1,0 +1,9 @@
+/>A:Mind your own business please .;/B
+/B:I don't like your vibe .;?1;2;3
+/C:No .;<
+/D:Our musical style is incompatible .;/E
+/E:Now get out .;<
+
+?1:Sure .;<
+?2:Can I ask you one question though ?;C
+?3:Why is my vibe bad ?;

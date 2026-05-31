@@ -11,6 +11,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float moveStartTime = 1f;
     [SerializeField] private AnimationCurve moveEndCurve;
     [SerializeField] private float moveEndTime = 1f;
+    [SerializeField] private AnimationCurve jumpCurve;
+    [SerializeField] private float jumpTime = 0.8f;
+    [SerializeField] private float jumpHeight = .2f;
+    [SerializeField] private float jumpSpeedInfluence = 0.5f;
+    [SerializeField] private float baseSpeed = 0.5f;
     
     [Header("Interaction")]
     [SerializeField] private float interactionDistance = 2f;
@@ -20,8 +25,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private KeyCode[] moveDownKeys = {KeyCode.S, KeyCode.DownArrow, KeyCode.K};
     [SerializeField] private KeyCode[] moveLeftKeys = {KeyCode.A, KeyCode.LeftArrow, KeyCode.J};
     [SerializeField] private KeyCode[] moveRightKeys = {KeyCode.D, KeyCode.RightArrow, KeyCode.L};
-    [SerializeField] private KeyCode[] openPianoKeys = {KeyCode.Space, KeyCode.Q, KeyCode.O, KeyCode.Tab};
-    [SerializeField] private KeyCode[] runKeys = {KeyCode.LeftShift, KeyCode.RightShift};
 
     // References
     [SerializeField] private Transform NPCs;
@@ -29,10 +32,14 @@ public class PlayerController : MonoBehaviour
     private float _startTimer;
     private float _endTimer;
     private Vector2 _lastMove;
+    private Transform _sprite;
+    private float _jumpTimer = 0f;
+    private bool _jump = false;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _sprite = GetComponentInChildren<SpriteRenderer>().transform;
     }
 
     private void FixedUpdate()
@@ -72,9 +79,13 @@ public class PlayerController : MonoBehaviour
             
             _rb.linearVelocity = moveVelocity * (moveSpeed * Time.fixedDeltaTime * moveMultplier);
             _lastMove = moveVelocity;
+
+            _jump = true;
         }
 
         HandleInteraction();
+        _rb.linearVelocity *= baseSpeed + (HandleAnimation(moveVelocity) * jumpSpeedInfluence); // Jumping also influences speed
+        
     }
 
     private void HandleInteraction()
@@ -104,6 +115,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private float HandleAnimation(Vector2 move)
+    {
+        if (!_jump) return 0f;
+        _jumpTimer += Time.deltaTime / jumpTime;
+        float y = jumpCurve.Evaluate(_jumpTimer);
+        _sprite.localPosition = new Vector2(_sprite.localPosition.x, y * jumpHeight);
+        
+        if (!(_jumpTimer >= 1f)) return y;
+        if (move == Vector2.zero) _jump = false;
+        _jumpTimer = 0f;
+        return y;
+    }
+    
     private int IsHeld(KeyCode[] keys, bool inv = false)
     {
         foreach (KeyCode key in keys)

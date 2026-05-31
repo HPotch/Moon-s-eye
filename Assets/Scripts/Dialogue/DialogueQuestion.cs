@@ -14,6 +14,8 @@ public class DialogueQuestion : MonoBehaviour
     [SerializeField] private Vector3 animationAxis = Vector3.up;
     [SerializeField] private Sprite selectSprite;
     [SerializeField] private Sprite noSelectSprite;
+    [SerializeField] private AudioClip confirm;
+    [SerializeField] private AudioClip select;
     [NonSerialized] public float waitTime = 0f;
     
     // References
@@ -30,6 +32,7 @@ public class DialogueQuestion : MonoBehaviour
     private Vector3 _startSize;
     private bool _show = true;
     [NonSerialized] public bool Selected = false;
+    private bool _justSelected = false;
 
     private void Awake()
     {
@@ -58,6 +61,12 @@ public class DialogueQuestion : MonoBehaviour
 
         if ((GameManager.Instance.mouseOver == gameObject && GameManager.Instance.currentInputMode == GameManager.InputMode.Keyboard) || Selected)
         {
+            if (_justSelected)
+            {
+                AudioManager.Instance.StartClip(select);
+                _justSelected = false;
+            }
+            
             _image.sprite = selectSprite;
             if (Input.GetMouseButtonDown(0)) Select();
             else
@@ -69,7 +78,11 @@ public class DialogueQuestion : MonoBehaviour
             }
             
         }
-        else _image.sprite = noSelectSprite;
+        else
+        {
+            _justSelected = true;
+            _image.sprite = noSelectSprite;
+        }
 
         
         
@@ -84,7 +97,12 @@ public class DialogueQuestion : MonoBehaviour
 
     public void Select()
     {
-        if (Question.End) NPCDialogue.Exit();
+        AudioManager.Instance.StartClip(confirm);
+        if (Question.End)
+        {
+            NPCDialogue.Exit();
+            NPCDialogue.onDialogueFinished?.Invoke();
+        }
         else NPCDialogue.SetTalk(Question.NextTalk);
         dqc.Empty();
     }
