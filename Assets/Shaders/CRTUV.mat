@@ -73,9 +73,9 @@ Material:
     m_Floats:
     - _BloomCorrect: 0.02
     - _BloomIntensity: 0.41
-    - _BloomSoftness: 0.432
+    - _BloomSoftness: 0.619
     - _BloomSpread: 0.005
-    - _BloomThreshold: 1
+    - _BloomThreshold: 0.696
     - _DistortionStrength: -0
     - _EnableExternalAlpha: 0
     - _Gamma: 0.76

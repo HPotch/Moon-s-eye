@@ -27,6 +27,7 @@ public class CameraController : MonoBehaviour
         if (target is null) Debug.LogError("You should set a target to the cameraController, dummy");
         _zPos = transform.position.z;
         transform.position = target.transform.position;
+        _smoothedV3 = transform.position;
     }
     
     private void FixedUpdate()
