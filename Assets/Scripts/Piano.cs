@@ -56,7 +56,6 @@ public class Piano : MonoBehaviour
     private void Update()
     {
         UpdateCurrentDevice();
-        print(_gm.overlayEnabled);
         if (!(_gm.overlayEnabled) && _gm.pianoKeys.Any(Input.GetKeyDown))
         {
             _gm.pianoEnabled = !_gm.pianoEnabled;

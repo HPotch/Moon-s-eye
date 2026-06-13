@@ -141,7 +141,7 @@ public class NPCDialogue : MonoBehaviour
     private void SpawnDialogue()
     {
         _dialogue = Instantiate(dialoguePrefab, transform);
-        _dialogue.transform.localPosition += new Vector3(dialogueOffset.x, dialogueOffset.y, 0f);
+        _dialogue.transform.position += new Vector3(dialogueOffset.x, dialogueOffset.y, 0f);
         _dialogueScript = _dialogue.GetComponent<Dialogue>();
     }
 
