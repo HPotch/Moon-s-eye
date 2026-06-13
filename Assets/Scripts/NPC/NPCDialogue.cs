@@ -97,6 +97,7 @@ public class NPCDialogue : MonoBehaviour
                     return;
                 }
                 if (cd.TalkNext) { SetTalk(cd.NextTalk); return; }
+                
                 SpawnQuestions(cd);
             }
             else
@@ -108,6 +109,7 @@ public class NPCDialogue : MonoBehaviour
 
     private void SpawnQuestions(Classes.Talk cd)
     {
+        print("SpawnQuestions");
         float waitTime = 0f;
         foreach (string key in cd.NextQuestions)
         {

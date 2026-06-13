@@ -18,7 +18,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private AnimationCurve pianoOffsetCurve;
 
     // Private variables
-    private float _zPos = 0f;
+    private float _zPos = -10f;
     private Vector3 _smoothedV3 = Vector2.zero;
     private float _timer = 0f;
 
@@ -26,7 +26,11 @@ public class CameraController : MonoBehaviour
     {
         if (target is null) Debug.LogError("You should set a target to the cameraController, dummy");
         _zPos = transform.position.z;
-        transform.position = target.transform.position;
+        
+        Vector3 startPosition = target.transform.position;
+        startPosition.z = _zPos;
+        transform.position = startPosition;
+        
         _smoothedV3 = transform.position;
     }
     
@@ -52,7 +56,6 @@ public class CameraController : MonoBehaviour
         {
             Vector2 invertedPosition = targetPosition + (targetPosition - smoothedPosition);
             transform.position = new Vector3(invertedPosition.x, invertedPosition.y, _zPos);
-            
             return;
         }
         

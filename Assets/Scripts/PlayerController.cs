@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpTime = 0.8f;
     [SerializeField] private float jumpHeight = .2f;
     [SerializeField] private float jumpSpeedInfluence = 0.5f;
+    [SerializeField] private float rotationAmount = 2f;
     [SerializeField] private float baseSpeed = 0.5f;
     
     [Header("Interaction")]
@@ -35,11 +36,13 @@ public class PlayerController : MonoBehaviour
     private Transform _sprite;
     private float _jumpTimer = 0f;
     private bool _jump = false;
+    private SquashStretch _squashStretch;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         _sprite = GetComponentInChildren<SpriteRenderer>().transform;
+        _squashStretch = GetComponent<SquashStretch>();
     }
 
     private void FixedUpdate()
@@ -119,9 +122,11 @@ public class PlayerController : MonoBehaviour
     private float HandleAnimation(Vector2 move)
     {
         if (!_jump) return 0f;
+        _squashStretch.PlaySquashAndStretch(false);
         _jumpTimer += Time.deltaTime / jumpTime;
         float y = jumpCurve.Evaluate(_jumpTimer);
         _sprite.localPosition = new Vector2(_sprite.localPosition.x, y * jumpHeight);
+        _sprite.eulerAngles = new Vector3(0f, 0f, ((y * 2f) - 1f) * rotationAmount);
         
         if (!(_jumpTimer >= 1f)) return y;
         if (move == Vector2.zero) _jump = false;

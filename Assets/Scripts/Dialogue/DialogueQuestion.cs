@@ -98,6 +98,7 @@ public class DialogueQuestion : MonoBehaviour
 
     public void Select()
     {
+        print("Select");
         AudioManager.Instance.StartClip(confirm);
         if (Question.End)
         {
