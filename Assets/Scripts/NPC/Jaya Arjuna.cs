@@ -14,6 +14,7 @@ public class JayaArjuna : MonoBehaviour
     [Header("Dialogue")]
     [SerializeField] private TextAsset nextFile;
     [SerializeField] private TextAsset scrollRead;
+    [SerializeField] private TextAsset afterScroll;
 
     private NPCDialogue _dialogue;
     private bool _spawned = false;
@@ -40,6 +41,12 @@ public class JayaArjuna : MonoBehaviour
         message.GetComponent<TextMeshProUGUI>().text = text1 + keyText + text2;
         
         _dialogue.LoadText(nextFile);
+    }
+
+    public void DialogueRead()
+    {
+        if (!_dialogue.CheckDialogue(scrollRead.name)) return;
+        _dialogue.LoadText(afterScroll);
     }
 
     private void ReadScroll()

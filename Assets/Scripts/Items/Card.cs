@@ -28,12 +28,14 @@ public class Card : MonoBehaviour
         button.localScale = Vector3.zero;
         blur.color = new Color(_blurStartColor.r, _blurStartColor.g, _blurStartColor.b, 0f);
         _buttonStartPos = button.position;
+        GameManager.Instance.overlayEnabled = true;
     }
     
     private void Update()
     {
         foreach (var key in GameManager.Instance.exitKeys.Where(Input.GetKeyDown)) _exit = true;
-        
+        foreach (var key in GameManager.Instance.confirmKeys.Where(Input.GetKeyDown)) _exit = true;
+            
         PopUp();
         Exit();
     }
@@ -53,6 +55,7 @@ public class Card : MonoBehaviour
     private void Exit()
     {
         if (!_exit) return;
+        if (GameManager.Instance.overlayEnabled) GameManager.Instance.overlayEnabled = false;
         _timer += Time.deltaTime / exitTime;
         float t = exitAnimation.Evaluate(Mathf.Clamp01(_timer));
         float r = Mathf.Lerp(0f, 1f, t);
@@ -62,13 +65,13 @@ public class Card : MonoBehaviour
         if (!(_timer > 1f)) return;
         _exit = false;
         if (destroyOnExit) Destroy(gameObject);
-
     }
 
     public void StartPopUp()
     {
         if (_exit) return;
         _popUp = true;
+        GameManager.Instance.overlayEnabled = true;
     }
 
     public void StartExit()
@@ -76,5 +79,6 @@ public class Card : MonoBehaviour
         if (_popUp) return;
         _timer = 0f;
         _exit = true;
+        GameManager.Instance.overlayEnabled = false;
     }
 }

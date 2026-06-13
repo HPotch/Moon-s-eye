@@ -4,7 +4,7 @@
 /D:Everyone knows that Moonfolk don't move here anymore .;/E
 /E:Ever since Ione Gaia, Moonfolk aren't allowed to move anymore .;/G
 /F:Yes, yes, that is true .;/G
-/G:Now tell my why you came here, I don't have all day !;?3;4;8
+/G:Now tell my why you came here, I don't have all day !;?3;4
 /H:Well, than you came to the right place, I am from Earth .;/I
 /I:My name is Mr. Wright by the way. Good to meet another someone interested in Earth .;?5;6
 /J:On Earth, cultures actually learn from one another . We could learn from that over here .;/L

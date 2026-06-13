@@ -28,6 +28,7 @@ public class NPCDialogue : MonoBehaviour
     private string _currentDialogue = ""; // Key in _talks dictionary for the current dialogue
     private string _startTalk = ""; // Key in _talks dictionary for the start dialogue
     private bool _justStarted = false; // Turns to true the frame that the dialogue starts
+    private string _dialogueName = "";
 
     // Dictionaries
     private Dictionary<string, Classes.Talk> _talks = new Dictionary<string, Classes.Talk>();
@@ -51,9 +52,9 @@ public class NPCDialogue : MonoBehaviour
         if (_startTalk == "")
         {
             if (good && goodFile != null) 
-                DecodeDialogue.DecodeText(goodFile.text, goodFile.name, out _talks, out _questions, out _startTalk);
+                DecodeDialogue.DecodeText(goodFile.text, goodFile.name, out _talks, out _questions, out _startTalk, out _dialogueName);
             else if (!good && badFile != null) 
-                DecodeDialogue.DecodeText(badFile.text, badFile.name, out _talks, out _questions, out _startTalk);
+                DecodeDialogue.DecodeText(badFile.text, badFile.name, out _talks, out _questions, out _startTalk, out _dialogueName);
             else
                 Debug.LogError("NPCDialogue: Trying to start dialogue, but the corresponding TextAsset is missing!", this);
         }
@@ -82,7 +83,7 @@ public class NPCDialogue : MonoBehaviour
     
     private void HandleNext()
     {
-        if (!(_dialogueStarted) || _justStarted) return;
+        if (!(_dialogueStarted) || _justStarted || GameManager.Instance.pianoEnabled || GameManager.Instance.inventoryEnabled || GameManager.Instance.overlayEnabled) return;
         foreach (var key in GameManager.Instance.confirmKeys)
         {
             if (!Input.GetKeyDown(key)) continue;
@@ -140,12 +141,17 @@ public class NPCDialogue : MonoBehaviour
     private void SpawnDialogue()
     {
         _dialogue = Instantiate(dialoguePrefab, transform);
-        _dialogue.transform.position += new Vector3(dialogueOffset.x, dialogueOffset.y, 0f);
+        _dialogue.transform.localPosition += new Vector3(dialogueOffset.x, dialogueOffset.y, 0f);
         _dialogueScript = _dialogue.GetComponent<Dialogue>();
     }
 
     public void LoadText(TextAsset text)
     {
-        DecodeDialogue.DecodeText(text.text, text.name, out _talks, out _questions, out _startTalk);
+        DecodeDialogue.DecodeText(text.text, text.name, out _talks, out _questions, out _startTalk, out _dialogueName);
+    }
+
+    public bool CheckDialogue(string checker)
+    {
+        return _dialogueName == checker;
     }
 }

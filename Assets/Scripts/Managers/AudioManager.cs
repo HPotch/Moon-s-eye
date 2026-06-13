@@ -12,6 +12,9 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip loopMusic;
     [SerializeField] private float musicVolume = 0.5f;
     [SerializeField] private float musicFadeTime = 0.75f;
+    [SerializeField] private AudioClip ambientSound;
+    [SerializeField] private float ambientVolume = 1f;
+    
 
     private float _fadeTimer = 0f;
     private AudioSource _musicSource;
@@ -31,6 +34,7 @@ public class AudioManager : MonoBehaviour
     private void Start()
     {
         _musicSource = StartClip(loopMusic, 1f, 1f, true);
+        StartClip(ambientSound, ambientVolume, 1f, true);
     }
 
     private void Update()

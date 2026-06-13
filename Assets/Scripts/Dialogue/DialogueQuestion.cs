@@ -57,40 +57,41 @@ public class DialogueQuestion : MonoBehaviour
 
     private void Update()
     {
+        GameManager gm = GameManager.Instance;
         _collider.size = new Vector2(_rectTransform.rect.width, _rectTransform.rect.height);
 
-        if ((GameManager.Instance.mouseOver == gameObject && GameManager.Instance.currentInputMode == GameManager.InputMode.Keyboard) || Selected)
+        if ((gm.mouseOver == gameObject && gm.currentInputMode == GameManager.InputMode.Keyboard) || Selected)
         {
             if (_justSelected)
             {
                 AudioManager.Instance.StartClip(select);
                 _justSelected = false;
             }
-            
-            _image.sprite = selectSprite;
-            if (Input.GetMouseButtonDown(0)) Select();
-            else
+
+            if (!(gm.pianoEnabled || gm.inventoryEnabled || gm.overlayEnabled))
             {
-                foreach (var key in GameManager.Instance.confirmKeys)
+                _image.sprite = selectSprite;
+                if (Input.GetMouseButtonDown(0)) Select();
+                else
                 {
-                    if (Input.GetKeyDown(key)) Select();
+                    foreach (var key in gm.confirmKeys)
+                    {
+                        if (Input.GetKeyDown(key)) Select();
+                    }
                 }
             }
-            
         }
         else
         {
             _justSelected = true;
             _image.sprite = noSelectSprite;
         }
-
-        
         
         _sizeTimer += (Time.deltaTime / sizeTime) * (_show ? 1f : -1f);
         _sizeTimer = Mathf.Clamp(_sizeTimer, -waitTime, 1f);
 
         Vector3 axis = new Vector3(_startSize.x * animationAxis.x, _startSize.y * animationAxis.y, _startSize.z * animationAxis.z);
-        transform.localScale = Util.LerpWithoutClampV3(axis, _startSize, sizeCurve.Evaluate(_sizeTimer));
+        transform.localScale = Vector3.LerpUnclamped(axis, _startSize, sizeCurve.Evaluate(_sizeTimer));
         
         if (!_show && _sizeTimer <= 0f) Destroy(gameObject);
     }

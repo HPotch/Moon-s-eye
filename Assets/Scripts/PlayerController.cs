@@ -91,6 +91,7 @@ public class PlayerController : MonoBehaviour
     private void HandleInteraction()
     {
         GameManager gm = GameManager.Instance;
+        if (gm.pianoEnabled || gm.inventoryEnabled || gm.overlayEnabled) return;
         GameObject closestNPC = null;
         var closestDistance = float.PositiveInfinity;
         for (var i = 0; i < NPCs.childCount; i++)

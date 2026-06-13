@@ -27,7 +27,7 @@ public static class DecodeDialogue
         Question
     }
     
-    public static void DecodeText(string fileContent, string sourceName, out Dictionary<string, Classes.Talk> talks, out Dictionary<string, Classes.Question> questions, out string startTalk)
+    public static void DecodeText(string fileContent, string sourceName, out Dictionary<string, Classes.Talk> talks, out Dictionary<string, Classes.Question> questions, out string startTalk, out string dialogueName)
     {
         Clear();
         _filePath = sourceName;
@@ -39,6 +39,7 @@ public static class DecodeDialogue
             talks = _talks;
             questions = _questions;
             startTalk = _startTalk;
+            dialogueName = sourceName;
             return;
         }
 
@@ -57,6 +58,7 @@ public static class DecodeDialogue
         talks = _talks; 
         questions = _questions;
         startTalk = _startTalk;
+        dialogueName = sourceName;
     }
 
     private static void Clear()

@@ -79,10 +79,10 @@ Material:
     - _DistortionStrength: -0
     - _EnableExternalAlpha: 0
     - _Gamma: 0.76
-    - _JitterAmount: 0.17
+    - _JitterAmount: 0.55
     - _JitterNoiseAmount: 0.804
-    - _JitterSize: 270
-    - _JitterSpeed: 1.4
+    - _JitterSize: 809.4
+    - _JitterSpeed: 5.8
     - _PixelAmount: 1.14
     - _PixelPower: 1.63
     - _PixelSize: 0

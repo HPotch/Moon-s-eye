@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -34,6 +35,8 @@ public class GameManager : MonoBehaviour
     public List<KeyCode> scrollUpKeys = new List<KeyCode>();
     public List<KeyCode> scrollDownKeys = new List<KeyCode>();
     public List<KeyCode> pianoKeys = new List<KeyCode>() {KeyCode.P, KeyCode.JoystickButton2};
+    [Header("Audio Effects")] 
+    [SerializeField] private AudioClip inventorySound;
     [Header("Changing References")]
     public GameObject closestNPC = null;
     public GameObject mouseOver = null;
@@ -41,6 +44,7 @@ public class GameManager : MonoBehaviour
     [Header("Booleans")]
     public bool pianoEnabled = false;
     public bool inventoryEnabled = false;
+    public bool overlayEnabled = false;
     public bool MIDIAttached = false;
     [field: Header("Events")]
     public event Action OnScrollRead;
@@ -58,7 +62,7 @@ public class GameManager : MonoBehaviour
         GetInputMode();
         
         // Debug
-        if (Input.GetKeyDown(KeyCode.R) && Input.GetKey(KeyCode.LeftShift)) SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //if (Input.GetKeyDown(KeyCode.R) && Input.GetKey(KeyCode.LeftShift)) SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         if (inventoryEnabled) pianoEnabled = false;
 
 
@@ -66,6 +70,7 @@ public class GameManager : MonoBehaviour
         foreach (var key in GameManager.Instance.inventoryKeys.Where(Input.GetKeyDown))
         {
             GameManager.Instance.inventoryEnabled = !GameManager.Instance.inventoryEnabled;
+            if (inventoryEnabled) AudioManager.Instance.StartClip(inventorySound, 0.4f, Random.Range(0.9f, 1.1f));
         }
         if (inventory) inventory.transform.parent.gameObject.SetActive(inventoryEnabled);
 
