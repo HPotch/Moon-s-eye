@@ -25,11 +25,11 @@ public class GameManager : MonoBehaviour
     public Piano piano;
     public CameraController camcontrol;
     [Header("Keycodes")]
-    public List<KeyCode> confirmKeys = new List<KeyCode>();
-    public List<KeyCode> exitKeys = new List<KeyCode>();
+    public List<KeyCode> confirmKeys = new List<KeyCode>() {KeyCode.E, KeyCode.U, KeyCode.Return, KeyCode.JoystickButton0};
+    public List<KeyCode> exitKeys = new List<KeyCode>() {KeyCode.Escape, KeyCode.JoystickButton1};
     public List<KeyCode> inventoryKeys = new List<KeyCode>();
-    public List<KeyCode> scrollUpKeys = new List<KeyCode>();
-    public List<KeyCode> scrollDownKeys = new List<KeyCode>();
+    public List<KeyCode> scrollUpKeys = new List<KeyCode>() {KeyCode.UpArrow, KeyCode.PageUp, KeyCode.JoystickButton4};
+    public List<KeyCode> scrollDownKeys = new List<KeyCode>() {KeyCode.DownArrow, KeyCode.PageDown, KeyCode.JoystickButton5};
     public List<KeyCode> pianoKeys = new List<KeyCode>() {KeyCode.P, KeyCode.JoystickButton2};
     public List<KeyCode> menuKeys = new List<KeyCode>() {KeyCode.Escape, KeyCode.JoystickButton7};
     
