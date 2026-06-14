@@ -17,7 +17,7 @@ public class Mouse : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    void Update()
+    private void Update()
     {
         Cursor.visible = false;
         

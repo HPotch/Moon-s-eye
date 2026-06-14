@@ -48,6 +48,8 @@ public class AudioManager : MonoBehaviour
             _musicSource.Pause();
             return;
         }
+
+        if (!_musicSource) return;
         if (!_musicSource.isPlaying) _musicSource.UnPause();
         if (_fadeTimer > 0f) _musicSource.volume = musicVolume * (1f - _fadeTimer);
     }

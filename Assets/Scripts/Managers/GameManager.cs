@@ -12,16 +12,12 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        // Setup Manager
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-            Destroy(gameObject);
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
     }
 
+    [SerializeField] private bool startMenu = false;
+    
     [Header("Static References")]
     public Inventory inventory;
     public Transform canvas = null;
@@ -35,6 +31,8 @@ public class GameManager : MonoBehaviour
     public List<KeyCode> scrollUpKeys = new List<KeyCode>();
     public List<KeyCode> scrollDownKeys = new List<KeyCode>();
     public List<KeyCode> pianoKeys = new List<KeyCode>() {KeyCode.P, KeyCode.JoystickButton2};
+    public List<KeyCode> menuKeys = new List<KeyCode>() {KeyCode.Escape, KeyCode.JoystickButton7};
+    
     [Header("Audio Effects")] 
     [SerializeField] private AudioClip inventorySound;
     [Header("Changing References")]
@@ -46,6 +44,7 @@ public class GameManager : MonoBehaviour
     public bool inventoryEnabled = false;
     public bool overlayEnabled = false;
     public bool MIDIAttached = false;
+    public bool pauseMenuEnabled = false;
     [field: Header("Events")]
     public event Action OnScrollRead;
 
@@ -60,16 +59,15 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         GetInputMode();
+        if (startMenu) return;
+        Pause();
         
-        // Debug
-        //if (Input.GetKeyDown(KeyCode.R) && Input.GetKey(KeyCode.LeftShift)) SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         if (inventoryEnabled) pianoEnabled = false;
 
-
         if (talkingWith) return;
-        foreach (var key in GameManager.Instance.inventoryKeys.Where(Input.GetKeyDown))
+        foreach (var key in inventoryKeys.Where(Input.GetKeyDown))
         {
-            GameManager.Instance.inventoryEnabled = !GameManager.Instance.inventoryEnabled;
+            inventoryEnabled = !inventoryEnabled;
             if (inventoryEnabled) AudioManager.Instance.StartClip(inventorySound, 0.4f, Random.Range(0.9f, 1.1f));
         }
         if (inventory) inventory.transform.parent.gameObject.SetActive(inventoryEnabled);
@@ -88,6 +86,22 @@ public class GameManager : MonoBehaviour
         bool mouseUpdate = Input.GetMouseButton(0) || Input.GetMouseButton(1) ||  Input.GetMouseButtonDown(2);
         if (keyboardUpdate || mouseUpdate) currentInputMode = InputMode.Keyboard;
         if (Gamepad.current.wasUpdatedThisFrame) currentInputMode = InputMode.Controller;
+    }
+
+    private void Pause()
+    {
+        // Scale time smoothly
+        //Time.timeScale = Mathf.Lerp(Time.timeScale, pauseMenuEnabled ? 0f : 1f, Time.unscaledDeltaTime * 10f);
+        //if (Time.timeScale <= 0.01f && pauseMenuEnabled) Time.timeScale = 0f;
+        //if (Time.timeScale >= 0.99f && !pauseMenuEnabled) Time.timeScale = 1f;
+        
+        if (inventoryEnabled || overlayEnabled) return;
+        foreach (var key in menuKeys.Where(Input.GetKeyDown))
+        {
+            if (pauseMenuEnabled) return;
+            pauseMenuEnabled = true;
+            SceneManager.LoadScene("PauseMenu", LoadSceneMode.Additive);
+        }
     }
 
     public void ReadScroll()
